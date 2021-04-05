@@ -2,21 +2,17 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '../../components/TextField/index';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import React, {useEffect} from 'react'
-import Typography from '@material-ui/core/Typography';
+import React, { useEffect } from 'react'
 import CardComponent from '../../components/Card'
 
 const Profile = (props) => {
 
-    useEffect(()=>{
+    useEffect(() => {
         document.title = 'Sicrap | Profile'
-    },[])
+    }, [])
 
     return (
         <>
-            {/* <Typography variant="h6" gutterBottom>
-                Payment method
-      </Typography> */}
             <CardComponent>
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
@@ -25,7 +21,7 @@ const Profile = (props) => {
                             name="name"
                             label="Name"
                             fullWidth
-                            // autoComplete="cc-name" 
+                        // autoComplete="cc-name" 
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -59,7 +55,7 @@ const Profile = (props) => {
                     </Grid>
                 </Grid>
             </CardComponent>
-            
+
         </>
     )
 }
