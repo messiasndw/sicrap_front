@@ -6,10 +6,14 @@ import CategoryIcon from '@material-ui/icons/Category';
 import Button from '@material-ui/core/Button';
 import useStyles from './styles'
 import {Link} from "react-router-dom";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 const Menus = (props) => {
 
     const classes = useStyles()
+    const theme = useTheme()
+    const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
     const menus = [
         { name: "PROFILE", url: "/profile", icon: <AccountCircleIcon classes={{ root: classes.rootIcon }} /> },
@@ -26,7 +30,7 @@ const Menus = (props) => {
                     <Link to={menu.url}>
                         <Button classes={{ root: classes.rootButton }}>
                             {menu.icon}
-                            {menu.name}
+                            {!matches && menu.name}
                         </Button>
                     </Link>
                 </Grid>

@@ -3,7 +3,7 @@ import Drawer from '@material-ui/core/Drawer';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-import ProfileCard from './ProfileCard'
+import ProfileCard from './ProfileCard/index'
 import Menus from './Menus'
 import useStyles from './styles'
 
@@ -15,7 +15,7 @@ const Leftbar = (props) => {
 
     return (
         <>
-            <Drawer classes={{ paper: classes.paper }} variant={'permanent'} anchor={"left"} >
+            <Drawer classes={{ paper: classes.drawer }} variant={'permanent'} anchor={"left"} >
                 <Grid spacing={2} container>
                     <ProfileCard />
                     <Menus/>
