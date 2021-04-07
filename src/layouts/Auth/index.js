@@ -18,20 +18,22 @@ const AuthLayout = ({ main, header }) => {
     const [s, set] = useState(false)
     return (
         <>
-
-            {/* <AuthGrid
-                leftbar={<LeftbarSkeleton isOpen={sideBar} menusSidebar={menusSidebar} />}
-                header={<Skeleton variant="text" width="460px" height="70px" />}
-                main={<Skeleton variant="rect" width="100%" height="100%" />}
-                rightbar={null}
-            /> */}
-
+            {
+                false ?
+                <AuthGrid
+                    leftbar={<LeftbarSkeleton isOpen={sideBar} menusSidebar={menusSidebar} />}
+                    header={<Skeleton variant="text" width="460px" height="70px" />}
+                    main={<Skeleton variant="rect" width="100%" height="100%" />}
+                    rightbar={null}
+                />
+                :
             <AuthGrid
                 leftbar={<Leftbar isOpen={sideBar} menusSidebar={menusSidebar} />}
                 header={header}
                 main={main}
                 rightbar={null}
             />
+            }
 
         </>
     )
