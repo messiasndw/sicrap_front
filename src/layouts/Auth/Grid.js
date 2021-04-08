@@ -15,6 +15,8 @@ export default function Grid({ leftbar, main, header }) {
             <div className="RightBar"></div>
             <div className="Header">
                 <div className="headerContent" style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+             
                     <Typography variant="h5" component="h2" gutterBottom>
                         {header}
                     </Typography>

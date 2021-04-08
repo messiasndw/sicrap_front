@@ -5,9 +5,9 @@ import React, { useEffect } from 'react'
 import CardComponent from '../../components/Card'
 import Button from '@material-ui/core/Button';
 
-import Select from '@material-ui/core/Select';
+import Select from '../../components/Select/index';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
+import InputLabel from '../../components/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
 import DatePicker from '../../components/DatePicker/index'
@@ -53,12 +53,12 @@ const Profile = (props) => {
                         <Grid item xs={12} md={6}>
                             <FormControl fullWidth >
 
-                                <InputLabel id="demo-simple-select-outlined-label">Gender</InputLabel>
+                                <InputLabel children="ee" id="demo-simple-select-outlined-label"/>
                                 <Select
                                     labelId="demo-simple-select-outlined-label"
                                     id="demo-simple-select-outlined"
                                     value={10}
-                                    label="Age"
+                                    // label="Age"
                                 >
                                     <MenuItem value="">
                                         <em>None</em>
@@ -72,13 +72,11 @@ const Profile = (props) => {
                         <Grid item xs={12} md={6}>
                             <FormControl fullWidth >
                                 <DatePicker
-                                    inputVariant="outlined"
+                                    // inputVariant="outlined"
                                     disableToolbar
                                     autoOk
                                     variant="inline"
-                                    format="dd/mm/yyyy"
-                                    margin="normal"
-                                    id="date-picker-inline"
+                                    // margin="normal"
                                     label="Birthday" />
                             </FormControl>
                         </Grid>

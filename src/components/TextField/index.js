@@ -1,19 +1,7 @@
 import TextFielMaterial from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import useStyles from './styles'
 
-const useStyles = makeStyles({
-    underline: {
-        "&:after": {
-            borderBottom: "2px solid #BBC4C2",
-        }, 
-    },
-    labelRoot:{
-        color:"#BBC4C2",
-        "&.Mui-focused": {
-            color: "#BBC4C2",
-        }, 
-    }
-});
 const TextField = (props) => {
 
     const classes = useStyles()

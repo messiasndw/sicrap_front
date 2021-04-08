@@ -45,7 +45,7 @@ const Menus = (props) => {
         //     </div>
                 
         // </>
-        <div>
+        <div style={{textAlign:"center"}}>
             <ul style={{padding:"0px",margin:"0px",textAlign:"left",display:"inline-block", listStyle:"none"}}>
             {menus.map((menu, key) =>
             (

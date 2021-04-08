@@ -34,6 +34,7 @@ const useStyles = makeStyles( theme => ({
         },
     },
     boxRoot: {
+        textAlign:"center",
         margin: "auto",
         marginTop: "100px",
         width:"100%"

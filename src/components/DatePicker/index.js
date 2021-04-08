@@ -4,12 +4,26 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import useStyles from './styles';
+import InputLabel from '@material-ui/core/InputLabel';
+
 
 const DatePicker = (props) => {
+
+    const classes = useStyles()
+    console.log(classes)
+
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
+            InputLabelProps={{classes:{root:classes.labelRoot}}}
+            inputProps={{classes:{underline:classes.underline}}}
+            InputProps={{classes:{underline:classes.underline}}}
+                // InputLabelProps={{ classes: { root: classes.root } }}
+                // InputProps={{ classes: { root: classes.root } }}
+                // classes={{root:classes.roots}}
                 {...props}
+                format={"dd/mm/yyyy"}
             />
         </MuiPickersUtilsProvider>
     )

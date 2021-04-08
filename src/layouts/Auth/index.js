@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar/index'
 import Leftbar from '../../components/Leftbar/index'
-import { menusSidebar } from './config'
 import AuthGrid from './Grid'
 import Profile from '../../views/Profile/index'
 import LeftbarSkeleton from '../../components/Leftbar/Skeleton/index'
@@ -21,14 +20,14 @@ const AuthLayout = ({ main, header }) => {
             {
                 false ?
                 <AuthGrid
-                    leftbar={<LeftbarSkeleton isOpen={sideBar} menusSidebar={menusSidebar} />}
+                    leftbar={<LeftbarSkeleton isOpen={sideBar} />}
                     header={<Skeleton variant="text" width="460px" height="70px" />}
                     main={<Skeleton variant="rect" width="100%" height="100%" />}
                     rightbar={null}
                 />
                 :
             <AuthGrid
-                leftbar={<Leftbar isOpen={sideBar} menusSidebar={menusSidebar} />}
+                leftbar={<Leftbar isOpen={sideBar}/>}
                 header={header}
                 main={main}
                 rightbar={null}

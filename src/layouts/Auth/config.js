@@ -1,18 +1,11 @@
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-const menusSidebar = [
-    {
-        name:"Profile",
-        url:"/profile",
-        icon: <AddCircleIcon/>
-    },
-    {
-        name:"Gestão",
-        url:"/gestao",
-        icon: <AddCircleIcon/>
-    }
-]
+const inputColors = {
+    primary:"red",
+    secondary:"blue",
+    hover:"yellow",
+    focused:"green"
+}
 
 export {
-    menusSidebar
+    inputColors
 }
