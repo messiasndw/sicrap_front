@@ -1,5 +1,5 @@
 import React from 'react'
-import Avatar from '@material-ui/core/Avatar';
+import Avatar from './Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -9,45 +9,26 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-const useStyles = makeStyles({
-    root: {
-        margin: "auto",
-        marginTop: "100px"
-    },
-    large: {
-        margin: "auto",
-        width: "150px",
-        height: "150px"
-    },
-    cardMediaRoot: {
-
-    },
-    cardRoot:{
-        backgroundColor:"unset",
-        boxShadow:"unset"
-    }
-});
+import useStyles from '../styles'
 
 const ProfileCard = (props) => {
 
     const classes = useStyles()
 
-
     return (
-        <Box className={classes.root} component="div" >
-            <Card classes={{root:classes.cardRoot}}>
+        <Box className={classes.boxRoot} component="div" >
+            <Card classes={{ root: classes.cardRoot }}>
                 <CardMedia>
-                    <Avatar className={classes.large} alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
+                    <Avatar/>
                 </CardMedia>
 
-                <CardContent>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom>
+                <CardContent classes={{root:classes.titleContent}}>
+                    <Typography classes={{body1:classes.profileTitle}} color="textSecondary" gutterBottom>
                         NADIOW613
                     </Typography>
                     <Typography variant="h5" component="h2">
-                        {/* be{bull}nev{bull}o{bull}lent */}
                     </Typography>
-                    <Typography className={classes.pos} color="textSecondary">
+                    <Typography classes={{body1:classes.profileSubTitle}} color="textSecondary">
                         ROOKIE
                     </Typography>
                 </CardContent>

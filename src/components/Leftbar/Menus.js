@@ -23,21 +23,44 @@ const Menus = (props) => {
     ]
 
     return (
-        <>
+        // <>
+        //     {menus.map((menu, key) =>
+        //     (
+        //         <Grid key={key} item xs={12}>
+        //             <Link to={menu.url}>
+        //                 <Button classes={{ root: classes.rootButton }}>
+        //                     {menu.icon}
+        //                     {!matches && menu.name}
+        //                 </Button>
+        //             </Link>
+        //         </Grid>
+        //     )
+        //     )}
+            
+        //     <div>
+        //         <ul style={{listStyle:"none",textAlign:"left",display:"inline-block"}}>
+        //             <li>1 - assasa</li>
+        //             <li>2 - eee</li>
+        //         </ul>
+        //     </div>
+                
+        // </>
+        <div>
+            <ul style={{padding:"0px",margin:"0px",textAlign:"left",display:"inline-block", listStyle:"none"}}>
             {menus.map((menu, key) =>
             (
-                <Grid key={key} item xs={12}>
+                <li style={{marginBottom:"15px"}} key={key} >
                     <Link to={menu.url}>
                         <Button classes={{ root: classes.rootButton }}>
                             {menu.icon}
                             {!matches && menu.name}
                         </Button>
                     </Link>
-                </Grid>
+                </li>
             )
             )}
-
-        </>
+            </ul>
+        </div>
     )
 }
 

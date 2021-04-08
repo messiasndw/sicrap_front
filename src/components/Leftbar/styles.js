@@ -1,40 +1,89 @@
 import { makeStyles,useTheme  } from '@material-ui/core/styles';
 
 const useStyles = makeStyles( theme => ({
+
+    // LEFTBAR
     drawer: {
-        // top: "65px",
         width: "20vw",
-        backgroundColor: "#BBC4C2",
-        [theme.breakpoints.down('sm')]: {
-            // backgroundColor: 'red',
-        },
-        // backgroundImage: "linear-gradient(to bottom right, #189AB4, #05445E)",
-        // "&:hover": {
-        //     backgroundColor: "blue"
-        // },
+        backgroundColor: "#E2DED0",
         borderRight: "0px",
         overflowY: "unset"
     },
+
+    // MENUS
     rootButton: {
-        width: "100%",
-        marginTop: "20px",
+        // width: "100%",
         fontSize: "1.1rem",
-        transition: "0.3s",
+        transition: "0.1s",
+        color:"#4E4F50",
         "&:hover": {
-            // backgroundColor: "none",
+            backgroundColor: "#4E4F50",
+            color:"#E2DED0",
             fontSize: "1.5rem"
         },
-
         "&:focus": {
-            backgroundColor: "none",
+            backgroundColor: "#4E4F50",
+            color:"#E2DED0",
             fontSize: "1.5rem"
         },
     },
     rootIcon: {
-        marginRight: "10px"
+        marginRight: "10px",
+        [theme.breakpoints.down('sm')]: {
+            marginRight:"0px",
+        },
     },
-    rootActiveButton: {
-        backgroundColor: "red"
+    boxRoot: {
+        margin: "auto",
+        marginTop: "100px",
+        width:"100%"
+    },
+
+    //PROFILE CARD
+    titleContent:{
+        [theme.breakpoints.down('xs')]: {
+            padding:"15px 0px 0px 0px",
+        },
+    },
+    profileTitle:{
+        fontSize:"1rem",
+        color:"#4E4F50",
+        [theme.breakpoints.down('sm')]: {
+            fontSize:"0.8rem",
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize:"0.6rem",
+        },
+    },
+    profileSubTitle:{
+        color:"#4E4F50",
+        fontSize:"0.9rem",
+        [theme.breakpoints.down('sm')]: {
+            fontSize:"0.6rem",
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize:"0.5rem",
+        },
+    },
+    large: {
+        margin: "auto",
+        width: "150px",
+        height: "150px",
+        [theme.breakpoints.down('sm')]: {
+            width:"100px",
+            height:"100px"
+        },
+        [theme.breakpoints.down('xs')]: {
+            width:"50px",
+            height:"50px"
+        },
+    },
+    cardMediaRoot: {
+
+    },
+    cardRoot:{
+        backgroundColor:"unset",
+        boxShadow:"unset"
     }
 }));
 

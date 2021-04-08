@@ -16,7 +16,7 @@ const Leftbar = (props) => {
     return (
         <>
             <Drawer classes={{ paper: classes.drawer }} variant={'permanent'} anchor={"left"} >
-                <Grid spacing={2} container>
+                <Grid >
                     <ProfileCard />
                     <Menus/>
                 </Grid>
