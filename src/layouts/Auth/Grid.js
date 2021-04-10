@@ -16,14 +16,14 @@ export default function Grid({ leftbar, main, header }) {
     console.log(classes)
     return (
         <div className="grid-container" style={{gridTemplateColumns: gridTemplateColumns}} >
-            <div className="Leftbar">{leftbar}</div>
-            <div className="Main">
+            <div className="Leftbar ">{leftbar}</div>
+            <div className="Main containerChild">
                 <div className="mainContent" style={{display:"flex", justifyContent:"center", height:"fit-content"}}>
                     {main}
                 </div>
             </div>
-            <div className="RightBar"></div>
-            <div className="Header" style={{ padding: "20px" }}>
+            <div className="RightBar containerChild"></div>
+            <div className="Header containerChild" style={{ padding: "20px" }}>
                 <div className="headerContent" style={{ width: "85%", height: "100%", margin: "auto", textAlign: "left" }}>
                     <CardComponent classes={{ root: classes.headerRoot }}>
                         <Typography classes={{ root: classes.headerText }} variant="h4" component="h2" gutterBottom>

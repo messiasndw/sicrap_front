@@ -1,5 +1,4 @@
-import React from 'react'
-import Grid from '@material-ui/core/Grid';
+import React, { useState } from 'react'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import CategoryIcon from '@material-ui/icons/Category';
@@ -22,6 +21,8 @@ const Menus = (props) => {
         { name: "ORDERS", url: "/orders", icon: <AccountCircleIcon classes={{ root: classes.rootIcon }} /> },
     ]
 
+    const [activeMenu,setActiveMenu] = useState(window.location.pathname.replace('/','').toUpperCase())
+
     return (
         <div style={{textAlign:"center"}}>
             <ul style={{padding:"0px",margin:"0px",textAlign:"left",display:"inline-block", listStyle:"none"}}>
@@ -29,7 +30,9 @@ const Menus = (props) => {
             (
                 <li style={{marginBottom:"15px"}} key={key} >
                     <Link to={menu.url}>
-                        <Button classes={{ root: classes.rootButton }}>
+                        <Button onClick={() => setActiveMenu(menu.name)} 
+                            classes={ activeMenu == menu.name ? { root: classes.rootButtonActive } : {root:classes.rootButton}}
+                        >
                             {menu.icon}
                             {!matches && menu.name}
                         </Button>

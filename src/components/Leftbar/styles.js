@@ -21,11 +21,17 @@ const useStyles = makeStyles( theme => ({
             color:"#E2DED0",
             fontSize: "1.5rem"
         },
-        "&:focus": {
-            backgroundColor: "#4E4F50",
-            color:"#E2DED0",
-            fontSize: "1.5rem"
-        },
+        
+    },
+    rootButtonActive: {
+        backgroundColor: "#4E4F50",
+        color: "#E2DED0",
+        fontSize: "1.5rem",
+        transition: "0.1s",
+        "&:hover":{
+        backgroundColor: "#4E4F50",
+        color: "#E2DED0",
+        }
     },
     rootIcon: {
         marginRight: "10px",
