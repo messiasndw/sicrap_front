@@ -3,7 +3,6 @@ import {
     BrowserRouter as Router,
     Route,
     Redirect,
-    useLocation
 } from "react-router-dom";
 import AuthLayout from '../layouts/Auth/index'
 

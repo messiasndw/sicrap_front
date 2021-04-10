@@ -1,9 +1,10 @@
 import Grid from '@material-ui/core/Grid';
 import TextField from '../../components/TextField/index';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CardComponent from '../../components/Card'
-import Button from '@material-ui/core/Button';
+import Button from '../../components/Button/index';
+// import Button from '@material-ui/core/Button';
 
 import Select from '../../components/Select/index';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -14,13 +15,26 @@ import DatePicker from '../../components/DatePicker/index'
 
 const Profile = (props) => {
 
+    const [form, setForm] = useState({
+        gender:"male"
+    })
+
     useEffect(() => {
         document.title = 'Sicrap | Profile'
     }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("submited")
+    }
+
+    const handleChange = (e) => {
+        const input = e.target
+        setForm((prevState) => ({
+            ...prevState,
+            [input.name]: input.value
+        }))
+        console.log(input)
+        console.log(form)
     }
 
     return (
@@ -44,28 +58,23 @@ const Profile = (props) => {
                             <TextField
                                 required
                                 id="email"
-                                label="E-Mail"
+                                label="Email"
                                 name="email"
                                 fullWidth
-                            // autoComplete="cc-number"
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <FormControl fullWidth >
 
-                                <InputLabel children="ee" id="demo-simple-select-outlined-label"/>
+                                <InputLabel children="Gender" id="demo-simple-select-outlined-label" />
                                 <Select
-                                    labelId="demo-simple-select-outlined-label"
-                                    id="demo-simple-select-outlined"
-                                    value={10}
-                                    // label="Age"
+                                    value={form.gender}
+                                    name="gender"
+                                    onChange={handleChange}
                                 >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    <MenuItem value='male'>Male</MenuItem>
+                                    <MenuItem value='female'>Female</MenuItem>
+                                    <MenuItem value='other'>Other</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>

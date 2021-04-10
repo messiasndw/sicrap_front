@@ -31,7 +31,9 @@ const useStyles = makeStyles( theme => ({
         marginRight: "10px",
         [theme.breakpoints.down('sm')]: {
             marginRight:"0px",
+            fontSize:"1.8rem"
         },
+        
     },
     boxRoot: {
         textAlign:"center",
@@ -75,8 +77,8 @@ const useStyles = makeStyles( theme => ({
             height:"100px"
         },
         [theme.breakpoints.down('xs')]: {
-            width:"50px",
-            height:"50px"
+            width:"55px",
+            height:"55px"
         },
     },
     cardMediaRoot: {

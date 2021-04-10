@@ -11,7 +11,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 const DatePicker = (props) => {
 
     const classes = useStyles()
-    console.log(classes)
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>

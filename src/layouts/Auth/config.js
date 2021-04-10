@@ -1,9 +1,9 @@
 
 const inputColors = {
-    primary:"red",
+    primary:"#4E4F50",
     secondary:"blue",
-    hover:"yellow",
-    focused:"green"
+    hover:"#4E4F50",
+    focused:"#E2DED0"
 }
 
 export {
