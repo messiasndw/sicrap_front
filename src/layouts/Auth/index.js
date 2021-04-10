@@ -12,7 +12,7 @@ const AuthLayout = ({ main, header }) => {
         console.log("montou")
     }, [])
 
-    const [sideBar, setSidebar] = useState(false)
+    const [sideBar, setSidebar] = useState([])
     const [sb, setSb] = useState(false)
     const [s, set] = useState(false)
     return (
