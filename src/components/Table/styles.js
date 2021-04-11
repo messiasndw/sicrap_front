@@ -1,13 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
+import {inputColors} from '../../layouts/Auth/config'
 
 const useStyles = makeStyles( theme => ({
 
-    root: {
-        marginBottom:"20px"
+    selected:{
+        backgroundColor:"black"
     },
-    rootButton:{
-        marginRight:"20px"
-    }
+    
 }));
 
 export default useStyles
