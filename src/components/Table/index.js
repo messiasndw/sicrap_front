@@ -20,6 +20,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import Alert from '@material-ui/lab/Alert';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '../../components/Button/index';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,15 +47,25 @@ const useStyles = makeStyles((theme) => ({
         top: 20,
         width: 1,
     },
-    selected:{
-        backgroundColor:"#89b3b0 !important",
+    selected: {
+        backgroundColor: "#89b3b0 !important",
     },
-    colorSecondary:{
-        color:"#4E4F50",
-        "&.Mui-checked":{
-            color:"#4E4F50"
+    colorSecondary: {
+        color: "#4E4F50",
+        "&.Mui-checked": {
+            color: "#4E4F50"
         }
-    }
+    },
+    alert: {
+        backgroundColor: "#89b3b0",
+        color: "#4E4F50",
+        "&.MuiAlert-icon": {
+            color: "red"
+        }
+    },
+    loading: {
+        color: "#4E4F50"
+    },
 }));
 
 function createData(name, calories, fat, carbs, protein) {
@@ -118,7 +131,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, head = [] } = props;
     const createSortHandler = (property) => (event) => {
         onRequestSort(event, property);
     };
@@ -132,10 +145,10 @@ function EnhancedTableHead(props) {
                         checked={rowCount > 0 && numSelected === rowCount}
                         onChange={onSelectAllClick}
                         inputProps={{ 'aria-label': 'select all desserts' }}
-                        classes={{colorSecondary:classes.colorSecondary}}
+                        classes={{ colorSecondary: classes.colorSecondary }}
                     />
                 </TableCell>
-                {headCells.map((headCell) => (
+                {head.map((headCell) => (
                     <TableCell
                         key={headCell.id}
                         align={headCell.numeric ? 'right' : 'left'}
@@ -186,9 +199,9 @@ const useToolbarStyles = makeStyles((theme) => ({
     //             color: theme.palette.text.primary,
     //             backgroundColor: theme.palette.secondary.dark,
     //         },
-    highlight:{
-        backgroundColor:"#89b3b0",
-        color:"white"
+    highlight: {
+        backgroundColor: "#89b3b0",
+        color: "white"
     },
     title: {
         flex: '1 1 100%',
@@ -215,7 +228,7 @@ const EnhancedTableToolbar = (props) => {
 
             {numSelected > 0 ? (
                 <Tooltip title="Delete">
-                    <IconButton aria-label="delete">
+                    <IconButton onClick={props.handleDelete} aria-label="delete">
                         <DeleteIcon />
                     </IconButton>
                 </Tooltip>
@@ -232,10 +245,10 @@ EnhancedTableToolbar.propTypes = {
 
 
 
-export default function EnhancedTable() {
+export default function EnhancedTable({ items = [], head = [], handleDelete, name = 'item', loading }) {
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('calories');
+    const [orderBy, setOrderBy] = React.useState(head[1].field);
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
@@ -249,19 +262,19 @@ export default function EnhancedTable() {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.name);
+            const newSelecteds = items.map((n) => n.id);
             setSelected(newSelecteds);
             return;
         }
         setSelected([]);
     };
 
-    const handleClick = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
+    const handleClick = (event, id) => {
+        const selectedIndex = selected.indexOf(id);
         let newSelected = [];
 
         if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
+            newSelected = newSelected.concat(selected, id);
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected.slice(1));
         } else if (selectedIndex === selected.length - 1) {
@@ -274,6 +287,7 @@ export default function EnhancedTable() {
         }
 
         setSelected(newSelected);
+        console.log(newSelected)
     };
 
     const handleChangePage = (event, newPage) => {
@@ -297,7 +311,7 @@ export default function EnhancedTable() {
             <Paper className={classes.paper}>
                 {
                     !!selected.length &&
-                    <EnhancedTableToolbar numSelected={selected.length} />
+                    <EnhancedTableToolbar numSelected={selected.length} handleDelete={handleDelete} />
 
                 }
                 <TableContainer>
@@ -308,46 +322,62 @@ export default function EnhancedTable() {
                         aria-label="enhanced table"
                     >
                         <EnhancedTableHead
+                            head={head}
                             classes={classes}
                             numSelected={selected.length}
                             order={order}
                             orderBy={orderBy}
                             onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
-                            rowCount={rows.length}
+                            rowCount={items.length}
                         />
                         <TableBody>
-                            {stableSort(rows, getComparator(order, orderBy))
-                                
+                            { items.length>0 && !loading &&
+                            
+                            stableSort(items, getComparator(order, orderBy))
+
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.name);
+                                    const isItemSelected = isSelected(row.id);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.name)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.name}
+                                            key={row.id}
                                             selected={isItemSelected}
-                                            classes={{selected:classes.selected, root:classes.root}}
+                                            classes={{ selected: classes.selected, root: classes.root }}
                                         >
                                             <TableCell padding="checkbox">
                                                 <Checkbox
                                                     checked={isItemSelected}
+                                                    onClick={(event) => handleClick(event, row.id)}
                                                     // inputProps={{{ 'aria-labelledby': labelId }}}
-                                                    classes={{colorSecondary:classes.colorSecondary}}
+                                                    classes={{ colorSecondary: classes.colorSecondary }}
                                                 />
                                             </TableCell>
-                                            <TableCell component="th" id={labelId} scope="row" padding="none">
-                                                {row.name}
-                                            </TableCell>
-                                            <TableCell align="right">{row.calories}</TableCell>
-                                            <TableCell align="right">{row.fat}</TableCell>
-                                            <TableCell align="right">{row.carbs}</TableCell>
-                                            <TableCell align="right">{row.protein}</TableCell>
+                                            {
+                                                head.map((h, headNumber) => (
+                                                    <>
+                                                        <TableCell component="th" id={labelId} scope="row" padding="none">
+                                                            {
+                                                                !!head[headNumber].options ?
+                                                                head[headNumber].options.map((button,index) => (
+                                                                    <IconButton onClick={() => console.log("ee")} >
+                                                                        <Tooltip placement={"top"} title={button.label} aria-label={button.label}>
+                                                                            {button.icon}
+                                                                        </Tooltip>
+                                                                    </IconButton>
+                                                                ))
+                                                                :
+                                                                row[head[headNumber].field]
+                                                            }
+                                                        </TableCell>
+                                                    </>
+                                                ))
+                                            }
                                         </TableRow>
                                     );
                                 })}
@@ -358,21 +388,24 @@ export default function EnhancedTable() {
                             )}
                         </TableBody>
                     </Table>
+                    
+                    {!items.length > 0 && !loading &&
+                        <Alert classes={{ standardInfo: classes.alert }} severity="info">No {name} was found - use the filter button to search!</Alert>
+                    }
+
                 </TableContainer>
-                {/* <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                /> */}
+                {
+                    loading &&
+                    <div style={{ display: "flex", justifyContent: "center", height: "100px", alignItems: "center" }}>
+                        <CircularProgress classes={{ colorPrimary: classes.loading }} />
+                    </div>
+                }
             </Paper>
-            <FormControlLabel
+
+            {/* <FormControlLabel
                 control={<Switch checked={dense} onChange={handleChangeDense} />}
                 label="Dense padding"
-            />
+            /> */}
         </div>
     );
 }
