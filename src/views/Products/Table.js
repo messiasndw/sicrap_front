@@ -1,63 +1,45 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import Table from '../../components/Table'
-import ListIcon from '@material-ui/icons/List';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import Edit from './Edit'
 
+export default function ({ data, loading }) {
 
-export default function (props) {
+    const [modal, setModal] = useState({ open: null, data: {} })
 
-    const items = [
-        {
-            name:"Car",
-            quantity:5,
-            created_at:"02-02-2002",
-            options:"OPTIONS HERE",
-            id:54
-        },
-        {
-            name:"Table",
-            quantity:14,
-            created_at:"02-02-2011",
-            options:"OPTIONS HERE",
-            id:23
-        },
-        {
-            name:"Fork",
-            quantity:70,
-            created_at:"02-02-2003",
-            options:"OPTIONS HERE",
-            id:8
-        }
-    ]
-    
-    const handleEdit = () => {
+    const handleEdit = useCallback((items) => {
+        setModal({ open: 'edit', data: items })
+    }, [])
 
+    const handleDelete = (selectedItem) => {
+        setModal({ modal: 'edit', data: selectedItem })
     }
 
-    const handleOrder = () => {
 
-    }
-
-    const options = [
-        {label: "EDIT",
-        event: handleEdit,
-        icon: <ListIcon />
-        },
-        {label: "ORDER",
-        event: handleOrder,
-        icon: <AttachMoneyIcon />
-        }
-    ]
+    // const options = [
+    //     {label: "EDIT",
+    //     event: handleEdit,
+    //     icon: <ListIcon />
+    //     },
+    //     {label: "ORDER",
+    //     event: handleOrder,
+    //     icon: <AttachMoneyIcon />
+    //     }
+    // ]
 
     const head = [
-        {label:"Name",id:'name', numeric: false, disablePadding: true, field:"name"},
-        {label:"Quantity",id:'quantity', numeric: false, disablePadding: false, field:"quantity"},
-        {label:"Created At",id:'created_at', numeric: false, disablePadding: false, field:"created_at"},
-        {label:"Options",id:'options', numeric: false, disablePadding: false, field:"options", options: options},
+        { label: "Name", id: 'name', numeric: false, disablePadding: true, field: "name" },
+        { label: "Quantity", id: 'quantity', numeric: false, disablePadding: false, field: "quantity" },
+        { label: "Created At", id: 'created_at', numeric: false, disablePadding: false, field: "created_at" },
+        { label: "Code", id: 'id', numeric: false, disablePadding: false, field: "id" },
+        { label: "Status", id: 'active', numeric: false, disablePadding: false, field: "active" },
+        // {label:"Options",id:'options', numeric: false, disablePadding: false, field:"options", },
     ]
 
     return (
-        <Table head={head} items={items} handleDelete={() => console.log("deletados")} name={"products"} loading={false} />
+        <>
+            <Table head={head} items={data} handleDelete={handleDelete} name={"products"} loading={loading} handleEdit={handleEdit} />
+            <Edit isOpen={modal.open == 'edit'} data={modal.data} setModal={setModal} />
+        </>
     )
 
 }
