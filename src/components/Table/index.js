@@ -24,11 +24,13 @@ import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '../../components/Button/index';
 import ListIcon from '@material-ui/icons/List';
+import Chip from '../Chip';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    tableRowRoot: {
         width: '100%',
         // backgroundColor:"black"
+        textAlign: "center"
     },
     paper: {
         width: '100%',
@@ -49,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
         width: 1,
     },
     selected: {
-        backgroundColor: "#89b3b0 !important",
+        backgroundColor: "#ececec !important",
     },
     colorSecondary: {
         color: "#4E4F50",
@@ -67,6 +69,9 @@ const useStyles = makeStyles((theme) => ({
     loading: {
         color: "#4E4F50"
     },
+    tableCellRoot: {
+        textAlign: "center"
+    }
 }));
 
 function createData(name, calories, fat, carbs, protein) {
@@ -152,7 +157,8 @@ function EnhancedTableHead(props) {
                 {head.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align={headCell.numeric ? 'right' : 'left'}
+                        // align={headCell.numeric ? 'right' : 'left'}
+                        align="center"
                         padding={headCell.disablePadding ? 'none' : 'default'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
@@ -201,17 +207,24 @@ const useToolbarStyles = makeStyles((theme) => ({
     //             backgroundColor: theme.palette.secondary.dark,
     //         },
     highlight: {
-        backgroundColor: "#89b3b0",
+        // backgroundColor: "#89b3b0",
+        backgroundColor: "#4E4F50",
         color: "white"
     },
     title: {
         flex: '1 1 100%',
     },
+    icons: {
+        color: "white",
+        "&:hover": {
+            // backgroundColor:"red"
+        }
+    }
 }));
 
 const EnhancedTableToolbar = (props) => {
     const classes = useToolbarStyles();
-    const { numSelected, editButton = true, deleteButton = true, handleEdit, handleDelete, selected } = props;
+    const { numSelected, editButton = true, deleteButton = true, handleEdit, handleDelete, selected, toolbarOptions = [] } = props;
     return (
         <Toolbar
             className={clsx(classes.root, {
@@ -228,19 +241,30 @@ const EnhancedTableToolbar = (props) => {
 
             {numSelected > 0 && deleteButton && (
                 <Tooltip title="Delete">
-                    <IconButton onClick={() => handleDelete(selected.map((i,k) => (i.id)))} aria-label="delete">
+                    <IconButton classes={{ root: classes.icons }} onClick={() => handleDelete(selected.map((i, k) => (i.id)))} aria-label="delete">
                         <DeleteIcon />
                     </IconButton>
                 </Tooltip>
             )}
             {numSelected == 1 && editButton && (
                 <Tooltip title="Edit">
-                    <IconButton onClick={() => handleEdit(selected[0])} aria-label="edit">
+                    <IconButton classes={{ root: classes.icons }} onClick={() => handleEdit(selected[0])} aria-label="edit">
                         <ListIcon />
                     </IconButton>
                 </Tooltip>
             )
             }
+            {toolbarOptions.map((item,index) => {
+                return (
+                    numSelected==1 == !item.multiple ? 
+                    <Tooltip title={item.tooltip}>
+                        <IconButton classes={{ root: classes.icons }} onClick={() => {item.onClick(selected)}}>
+                            {item.icon}
+                        </IconButton>
+                    </Tooltip>
+                    : null
+                )
+            })}
         </Toolbar>
     );
 };
@@ -251,10 +275,10 @@ EnhancedTableToolbar.propTypes = {
 
 
 
-export default function EnhancedTable({ items = [], head = [],handleEdit , handleDelete, name = 'item', loading, deleteButton, editButton }) {
+export default function EnhancedTable({ items = [], head = [], handleEdit, handleDelete, name = 'item', loading, deleteButton, editButton, toolbarOptions }) {
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState(head[1].field);
+    const [orderBy, setOrderBy] = React.useState(head[1].id);
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
@@ -317,7 +341,7 @@ export default function EnhancedTable({ items = [], head = [],handleEdit , handl
             <Paper className={classes.paper}>
                 {
                     !!selected.length &&
-                    <EnhancedTableToolbar deleteButton={deleteButton} editButton={editButton} handleEdit={handleEdit} handleDelete={handleDelete} selected={selected}  numSelected={selected.length} handleDelete={handleDelete} />
+                    <EnhancedTableToolbar toolbarOptions={toolbarOptions} deleteButton={deleteButton} editButton={editButton} handleEdit={handleEdit} handleDelete={handleDelete} selected={selected} numSelected={selected.length} handleDelete={handleDelete} />
 
                 }
                 <TableContainer>
@@ -354,35 +378,55 @@ export default function EnhancedTable({ items = [], head = [],handleEdit , handl
                                                 tabIndex={-1}
                                                 key={row.id}
                                                 selected={isItemSelected}
-                                                classes={{ selected: classes.selected, root: classes.root }}
+                                                classes={{ selected: classes.selected, root: classes.tableRowRoot }}
                                             >
                                                 <TableCell padding="checkbox">
                                                     <Checkbox
                                                         checked={isItemSelected}
                                                         onClick={(event) => handleClick(event, row)}
                                                         // inputProps={{{ 'aria-labelledby': labelId }}}
-                                                        classes={{ colorSecondary: classes.colorSecondary }}
+                                                        classes={{ colorSecondary: classes.colorSecondary, root: classes.tableCellRoot }}
                                                     />
                                                 </TableCell>
                                                 {
-                                                    head.map((h, headNumber) => (
-                                                        <>
-                                                            <TableCell component="th" id={labelId} scope="row" padding="none">
-                                                                {
-                                                                    !!head[headNumber].options ?
-                                                                        head[headNumber].options.map((button, index) => (
-                                                                            <IconButton onClick={() => console.log("ee")} >
-                                                                                <Tooltip placement={"top"} title={button.label} aria-label={button.label}>
-                                                                                    {button.icon}
-                                                                                </Tooltip>
-                                                                            </IconButton>
-                                                                        ))
-                                                                        :
-                                                                        row[head[headNumber].field]
-                                                                }
-                                                            </TableCell>
-                                                        </>
-                                                    ))
+                                                    head.map((h, headIndex) => {
+
+                                                        switch (head[headIndex].type) {
+                                                            case 'date':
+                                                                return (
+                                                                    <TableCell key={headIndex} component="th" id={labelId} scope="row" align="center" padding="none">
+                                                                        {row[head[headIndex].id]}
+                                                                    </TableCell>)
+                                                            case 'active':
+                                                                return (
+                                                                    <TableCell key={headIndex} component="th" id={labelId} scope="row" align="center" padding="none">
+                                                                        {row[head[headIndex].id] == '1' ? <Chip type="success" label="Active" /> : <Chip type="danger" label="Idle" />}
+                                                                    </TableCell>)
+                                                            case 'box':
+                                                                return (
+                                                                    <TableCell key={headIndex} component="th" id={labelId} scope="row" align="center" padding="none">
+                                                                        {row[head[headIndex].id] == '1' ? <Chip type="success" label="Active" /> : <Chip type="danger" label="Idle" />}
+                                                                    </TableCell>)
+
+                                                            default:
+                                                                return (
+                                                                    <TableCell key={headIndex} component="th" id={labelId} scope="row" align="center" padding="none">
+                                                                        {row[head[headIndex].id]}
+                                                                    </TableCell>)
+                                                        }
+
+                                                        // return (
+                                                        //     <>
+                                                        //         <TableCell key={headIndex} component="th" id={labelId} scope="row" align="center" padding="none">
+                                                        //             {
+                                                        //                 (head[headIndex].type == 'date' ? row[head[headIndex].id] :
+                                                        //                     head[headIndex].type == 'active' ? row[head[headIndex].id] == '1' ? <Chip type="success" label="Active" /> : <Chip type="danger" label="Idle" /> :
+                                                        //                         row[head[headIndex].id])
+                                                        //             }
+                                                        //         </TableCell>
+                                                        //     </>
+                                                        // )
+                                                    })
                                                 }
                                             </TableRow>
                                         );

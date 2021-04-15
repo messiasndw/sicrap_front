@@ -12,13 +12,13 @@ export default function FormDialog(props) {
 
   const [open, setOpen] = React.useState(false);
 
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
+  //   const handleClickOpen = () => {
+  //     setOpen(true);
+  //   };
 
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
+  //   const handleClose = () => {
+  //     setOpen(false);
+  //   };
 
   const classes = useStyles()
 
@@ -27,10 +27,11 @@ export default function FormDialog(props) {
       {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Open form dialog
       </Button> */}
-      <Dialog onEnter={props.onEnter} disableBackdropClick disableEscapeKeyDown classes={{paperWidthSm:classes.paperWidthSm}} open={props.isOpen} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle classes={{root:classes.titleRoot}} id="form-dialog-title">{props.title}</DialogTitle>
-        <DialogContent>
-            {props.children}
+
+      <Dialog onEnter={props.onEnter} disableBackdropClick disableEscapeKeyDown classes={{ paperWidthSm: classes.paperWidthSm }} open={props.isOpen} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle classes={{ root: classes.titleRoot }} id="form-dialog-title">{props.title}</DialogTitle>
+        <DialogContent classes={{ root: classes.contentRoot }}>
+          {props.children}
           {/* <DialogContentText>
             To subscribe to this website, please enter your email address here. We will send updates
             occasionally.
@@ -45,11 +46,11 @@ export default function FormDialog(props) {
           /> */}
         </DialogContent>
         <DialogActions>
-          <Button classes={{text:classes.button}} onClick={props.handleClose}>
+          <Button classes={{ text: classes.button }} onClick={props.handleClose}>
             {props.cancelTitle}
           </Button>
-          <Button classes={{text:classes.button}} type="submit" onClick={props.handleSubmit}>
-          {props.submitTitle}
+          <Button classes={{ text: classes.button }} onClick={props.handleSubmit}>
+            {props.submitTitle}
           </Button>
         </DialogActions>
       </Dialog>

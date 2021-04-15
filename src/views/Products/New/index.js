@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
-import ModalDialog from '../../../components/Dialog'
 import Grid from '@material-ui/core/Grid';
-import InputLabel from '../../../components/InputLabel';
+import ModalDialog from '../../../components/Dialog'
 import TextField from '../../../components/TextField/index';
 import FormControl from '@material-ui/core/FormControl';
 import Switch from '../../../components/Switch'
 
-const Edit = ({ setModal, isOpen, data, loading, updateData }) => {
-
-    const handleClose = () => {
-        setModal({ open: null, data: {} })
-    }
-
-    const [form, setForm] = useState({})
+const Filter = ({isOpen, handleClose}) => {
+ 
+    const [form,setForm] = useState({
+        active: null,
+        name: null,
+        code: null
+    })
 
     const handleInputChange = (e) => {
         const input = e.target
@@ -28,28 +27,20 @@ const Edit = ({ setModal, isOpen, data, loading, updateData }) => {
         ))
     }
 
-    const handleSubmit = () => {
-        console.log(form)
-    }
-
-    const onEnter = () => {
-        setForm({ ...data })
-    }
-
     return (
         <ModalDialog
-            onEnter={onEnter}
+            // onEnter={onEnter}
             handleClose={handleClose}
-            handleSubmit={handleSubmit}
+            // handleSubmit={handleSubmit}
             isOpen={isOpen}
             cancelTitle={"Cancel"}
-            submitTitle={"Save"}
-            title={"Edit Product"}>
+            submitTitle={"Create"}
+            title={"New Product"}>
             <Grid container spacing={3}>
-                <Grid item md={6} sm={12} xs={12}>
+            <Grid item md={6} sm={12} xs={12}>
                     <FormControl fullWidth variant="outlined">
                         <TextField required
-                            defaultValue={data.name}
+                            // defaultValue={data.name}
                             id="name"
                             name="name"
                             label="Name"
@@ -63,13 +54,13 @@ const Edit = ({ setModal, isOpen, data, loading, updateData }) => {
                     <FormControl fullWidth variant="outlined">
                         <TextField
                             // value={data.id || ''}
-                            defaultValue={data.id}
+                            // defaultValue={data.id}
                             required
                             id="code"
                             label="Code"
                             name="code"
                             fullWidth
-                            onChange={handleInputChange}
+                            // onChange={handleInputChange}
                         />
                     </FormControl>
                 </Grid>
@@ -85,6 +76,7 @@ const Edit = ({ setModal, isOpen, data, loading, updateData }) => {
 
         </ModalDialog>
     )
+
 }
 
-export default Edit
+export default Filter

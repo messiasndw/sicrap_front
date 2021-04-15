@@ -8,15 +8,16 @@ import useStyles from './styles'
 const Options = (props) => {
 
     const classes = useStyles()
-
     return (
-        <Grid classes={{root:classes.root}} container item xs={12} justify="flex-end">
-            <Button classes={{root:classes.rootButton}} variant="contained">
-                <FilterListIcon/>
-            </Button>
-            <Button variant="contained">
-                <AddIcon/>
-            </Button>
+        <Grid classes={{ root: classes.root }} container item xs={12} justify="flex-end">
+            {props.buttons.map((button, index) => (
+                <Button onClick={button.onClick} key={index} classes={{root: index == 0 && props.buttons>1 ? classes.rootButton : null}}>
+                    {
+                        button.icon
+                    }
+
+                </Button>
+            ))}
         </Grid>
     )
 }
