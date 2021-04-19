@@ -28,7 +28,7 @@ export default function FormDialog(props) {
         Open form dialog
       </Button> */}
 
-      <Dialog onEnter={props.onEnter} disableBackdropClick disableEscapeKeyDown classes={{ paperWidthSm: classes.paperWidthSm }} open={props.isOpen} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+      <Dialog onEnter={props.onEnter} onExited={props.onExited} disableBackdropClick disableEscapeKeyDown classes={{ paperWidthSm: classes.paperWidthSm }} open={props.isOpen} onClose={props.handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle classes={{ root: classes.titleRoot }} id="form-dialog-title">{props.title}</DialogTitle>
         <DialogContent classes={{ root: classes.contentRoot }}>
           {props.children}

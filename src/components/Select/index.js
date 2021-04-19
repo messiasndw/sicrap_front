@@ -2,7 +2,8 @@ import React from 'react'
 import Select from '@material-ui/core/Select';
 import useStyles from './styles'
 import Input from '@material-ui/core/Input';
-const CustomSelect = (props) => {
+import MenuItem from '@material-ui/core/MenuItem';
+const CustomSelect = ({options = [],...props}) => {
 
     const classes = useStyles()
     return (
@@ -11,6 +12,14 @@ const CustomSelect = (props) => {
             input={<Input classes={{
                 underline: classes.underline,
             }} />}
+
+            children={
+                options.map((option,index) => {
+                    return (
+                        <MenuItem key={index} value={option.value} >{option.label}</MenuItem>
+                    )
+                })
+            }
         />
     )
 }

@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Table from './Table'
 import Grid from '@material-ui/core/Grid';
 import HeaderOptions from './HeaderOptions'
 import Chip from '../../components/Chip';
 
 const Products = (props) => {
+
+    useEffect(() => {
+        console.log("produto montou")
+    },[])
 
     const [items,setItems] = useState([
         {

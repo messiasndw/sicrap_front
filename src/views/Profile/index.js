@@ -1,12 +1,11 @@
 import Grid from '@material-ui/core/Grid';
-import TextField from '../../components/TextField/index';
+import Input from '../../components/Input/index';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import React, { useEffect, useState } from 'react'
 import CardComponent from '../../components/Card'
 import Button from '../../components/Button/index';
 // import Button from '@material-ui/core/Button';
 import Select from '../../components/Select/index';
-import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '../../components/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import DatePicker from '../../components/DatePicker/index'
@@ -15,7 +14,9 @@ import DatePicker from '../../components/DatePicker/index'
 const Profile = (props) => {
 
     const [form, setForm] = useState({
-        gender: "male"
+        gender: "male",
+        name:"",
+        email:"",
     })
 
     useEffect(() => {
@@ -26,15 +27,27 @@ const Profile = (props) => {
         e.preventDefault()
     }
 
+    useEffect(()=>{
+        console.log(form)
+    },[form])
+
     const handleChange = (e) => {
         const input = e.target
         setForm((prevState) => ({
             ...prevState,
             [input.name]: input.value
         }))
-        console.log(input)
-        console.log(form)
     }
+
+    const onClear = (e) => {
+        const input = e.target
+        setForm((prevState) => ({
+            ...prevState,
+            [input.name]: ""
+        }))
+    }
+
+    const genderOptions = [{label:"Male", value:'male'}, {label: "Female", value:"female"},{label:"Other",value:"other"}]
 
     return (
         <>
@@ -44,38 +57,37 @@ const Profile = (props) => {
                         <Grid container spacing={3}>
 
                             <Grid item xs={12} md={6}>
-                                <FormControl fullWidth variant="outlined">
-                                    <TextField required
+                                    <Input required
                                         id="name"
                                         name="name"
                                         label="Name"
                                         fullWidth
+                                        value={form.name}
+                                        onChange={handleChange}
                                     // autoComplete="cc-name" 
                                     />
-                                </FormControl>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <TextField
+                                <Input
                                     required
                                     id="email"
                                     label="Email"
                                     name="email"
                                     fullWidth
+                                    value={form.email}
+                                    onChange={handleChange}
                                 />
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <FormControl fullWidth >
 
-                                    <InputLabel children="Gender" id="demo-simple-select-outlined-label" />
+                                    <InputLabel children="Gender" />
                                     <Select
                                         value={form.gender}
                                         name="gender"
                                         onChange={handleChange}
-                                    >
-                                        <MenuItem value='male'>Male</MenuItem>
-                                        <MenuItem value='female'>Female</MenuItem>
-                                        <MenuItem value='other'>Other</MenuItem>
-                                    </Select>
+                                        options={genderOptions}
+                                    />
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} md={6}>

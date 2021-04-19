@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid';
 import ModalDialog from '../../../components/Dialog'
-import TextField from '../../../components/TextField/index';
+import Input from '../../../components/Input/index';
 import FormControl from '@material-ui/core/FormControl';
 import Switch from '../../../components/Switch'
 
 const Filter = ({isOpen, handleClose}) => {
- 
+
     const [form,setForm] = useState({
-        active: null,
-        name: null,
-        code: null
+        active: '',
+        name: '',
+        code: ''
     })
 
     const handleInputChange = (e) => {
@@ -27,8 +27,17 @@ const Filter = ({isOpen, handleClose}) => {
         ))
     }
 
+    const onExited = () => {
+        setForm({
+            active:'',
+            code:'',
+            name:''
+        })
+    }
+
     return (
         <ModalDialog
+            onExited={onExited}
             // onEnter={onEnter}
             handleClose={handleClose}
             // handleSubmit={handleSubmit}
@@ -39,7 +48,7 @@ const Filter = ({isOpen, handleClose}) => {
             <Grid container spacing={3}>
             <Grid item md={6} sm={12} xs={12}>
                     <FormControl fullWidth variant="outlined">
-                        <TextField required
+                        <Input required
                             // defaultValue={data.name}
                             id="name"
                             name="name"
@@ -52,7 +61,7 @@ const Filter = ({isOpen, handleClose}) => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <FormControl fullWidth variant="outlined">
-                        <TextField
+                        <Input
                             // value={data.id || ''}
                             // defaultValue={data.id}
                             required

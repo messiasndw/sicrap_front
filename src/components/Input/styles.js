@@ -17,6 +17,17 @@ const useStyles = makeStyles( theme => ({
         "&.Mui-focused": {
             color: inputColors.focused,
         }, 
+    },
+    IconButtonRoot:{
+        padding:"0px"
+    },
+    iconRoot:{
+        height:"0.7em"
+    },
+    inputRoot:{
+        "&.MuiInput-formControl":{
+            marginTop:"0px"
+        }
     }
     
     

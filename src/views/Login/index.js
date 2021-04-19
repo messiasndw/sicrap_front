@@ -1,6 +1,6 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
-import TextField from '../../components/TextField/index';
+import Input from '../../components/Input/index';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CardComponent from '../../components/Card'
 import Button from '../../components/Button/index';
@@ -25,7 +25,7 @@ const Login = (props) => {
             <form onSubmit={handleSubmit} noValidate>
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
-                        <TextField
+                        <Input
                             required
                             id="email"
                             label="Email"
@@ -35,7 +35,7 @@ const Login = (props) => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <FormControl fullWidth variant="outlined">
-                            <TextField required
+                            <Input required
                                 id="name"
                                 name="name"
                                 label="Name"
