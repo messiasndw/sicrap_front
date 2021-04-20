@@ -22,14 +22,12 @@ const Edit = ({ setModal, isOpen, data, loading, updateData }) => {
     }
 
     const handleSwitchChange = (e) => {
-        console.log(e.target.checked)
         setForm((prevState) => (
             { ...prevState, active: e.target.checked ? 1 : 0 }
         ))
     }
 
     const handleSubmit = () => {
-        console.log(form)
     }
 
     const onEnter = () => {

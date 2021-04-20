@@ -16,7 +16,6 @@ const Filter = ({ isOpen, handleClose }) => {
     })
 
     useEffect(() => {
-        console.log(form)
     }, [form])
 
     const statusOptions = [{ label: "Active", value: 1 }, { label: "Idle", value: 0 }]

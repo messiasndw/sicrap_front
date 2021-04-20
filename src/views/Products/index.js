@@ -7,12 +7,11 @@ import { useSelector } from 'react-redux'
 const Products = (props) => {
 
     useEffect(() => {
-        console.log("produto montou")
+        return () => {
+        }
     },[])
 
     const a = useSelector(state => state)
-
-    console.log(a)
 
     const [items,setItems] = useState([
         {

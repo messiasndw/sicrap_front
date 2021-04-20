@@ -10,7 +10,6 @@ export default function ComboBox({options= [], onChange, name, placeholder, ...p
 
     const classes = useStyles()
 
-    console.log(options)
     return (
         <Autocomplete
         classes={{root:classes.autoCompleteRoot}}

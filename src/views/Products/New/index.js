@@ -21,7 +21,6 @@ const Filter = ({isOpen, handleClose}) => {
     }
 
     const handleSwitchChange = (e) => {
-        console.log(e.target.checked)
         setForm((prevState) => (
             { ...prevState, active: e.target.checked ? 1 : 0 }
         ))

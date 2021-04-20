@@ -13,7 +13,6 @@ export default React.memo(function ({ type, ...rest }) {
     }))
 
     const classes = useStyles()
-    console.log(classes)
     return (
         <Chip {...rest} classes={{root:classes.color}} />
     )

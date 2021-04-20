@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 
 const DefaultRoute = ({ component: Component, header, ...rest }) => {
-    console.log("aaaaaaaa")
     return (
             <Route
                 {...rest}

@@ -317,7 +317,6 @@ export default function EnhancedTable({ items = [], head = [], handleEdit, handl
         }
 
         setSelected(newSelected);
-        console.log(newSelected)
     };
 
     const handleChangePage = (event, newPage) => {

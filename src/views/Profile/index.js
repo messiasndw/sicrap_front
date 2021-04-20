@@ -28,7 +28,6 @@ const Profile = (props) => {
     }
 
     useEffect(()=>{
-        console.log(form)
     },[form])
 
     const handleChange = (e) => {

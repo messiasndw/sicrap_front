@@ -13,7 +13,6 @@ export default function Grid({ leftbar, main, header }) {
     const gridTemplateColumns = matches ? "20vw 80vw" : "20vw 70vw 10vw"
 
     const classes = useStyles()
-    console.log(classes)
     return (
         <div className="grid-container" style={{gridTemplateColumns: gridTemplateColumns}} >
             <div className="Leftbar ">{leftbar}</div>
