@@ -9,7 +9,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 const AuthLayout = ({ main, header }) => {
 
     useEffect(() => {
-        console.log("montou")
     }, [])
 
     const [sideBar, setSidebar] = useState([])

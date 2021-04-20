@@ -23,7 +23,7 @@ const DataTable = ({ data, loading }) => {
     }
 
     const toolbarOptions = [
-        {icon:<CategoryIcon/>, tooltip:"Edit Categories", multiple:false, onClick: ((numSelected) => {console.log(numSelected)})}
+        {icon:<CategoryIcon/>, tooltip:"Edit Categories", multiple:false, onClick: ((numSelected) => {})}
     ]
 
     const head = [

@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react'
 import Table from './Table'
 import Grid from '@material-ui/core/Grid';
 import HeaderOptions from './HeaderOptions'
-import Chip from '../../components/Chip';
+import { useSelector } from 'react-redux'
 
 const Products = (props) => {
 
     useEffect(() => {
         console.log("produto montou")
     },[])
+
+    const a = useSelector(state => state)
+
+    console.log(a)
 
     const [items,setItems] = useState([
         {
