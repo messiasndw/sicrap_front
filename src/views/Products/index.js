@@ -2,17 +2,24 @@ import React, { useState, useEffect } from 'react'
 import Table from './Table'
 import Grid from '@material-ui/core/Grid';
 import HeaderOptions from './HeaderOptions'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import {fetch} from '../../redux/actions'
+
 
 const Products = (props) => {
 
+    const dispatch = useDispatch()
+    const Products = useSelector(({Products}) => Products)
+    console.log(Products)
+
     useEffect(() => {
+        dispatch(fetch())
+        // fetch()
         return () => {
         }
     },[])
 
-    const a = useSelector(state => state)
-
+    
     const [items,setItems] = useState([
         {
             name: "Car",
@@ -52,22 +59,6 @@ const Products = (props) => {
             active: 0
         }
     ])
-
-    setTimeout(function () {
-        if(items.length<4){
-            setItems((prevState) => (
-                [...prevState,{
-                    name: "Forkaa",
-                    quantity: 703,
-                    created_at: "02-02-2003",
-                    options: "OPTIONS HERE",
-                    id: 83,
-                    user_id: 1,
-                    active: 0
-                }]
-            ))
-        }
-    }, 3000);
 
     return (
         <Grid item md={12} sm={12} xs={12}>

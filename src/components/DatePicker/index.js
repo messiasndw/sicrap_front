@@ -15,7 +15,6 @@ const DatePicker = (props) => {
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
-            InputLabelProps={{classes:{root:classes.labelRoot}}}
             inputProps={{classes:{underline:classes.underline}}}
             InputProps={{classes:{underline:classes.underline}}}
                 // InputLabelProps={{ classes: { root: classes.root } }}

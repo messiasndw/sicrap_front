@@ -22,7 +22,7 @@ const CustomInput = ({onClear, value, label, isClearable = false, ...rest}) => {
       >
         <CancelRoundedIcon classes={{root:classes.iconRoot}} />
       </IconButton>} 
-      inputProps={{classes:{underline: classes.underline}}} {...rest} InputLabelProps={{classes:{root:classes.labelRoot}}} />
+      inputProps={{classes:{underline: classes.underline}}} {...rest} />
       </Grid>
       </>
     )
