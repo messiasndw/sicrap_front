@@ -3,7 +3,7 @@ import Table from './Table'
 import Grid from '@material-ui/core/Grid';
 import HeaderOptions from './HeaderOptions'
 import { useSelector, useDispatch } from 'react-redux'
-import {fetch} from '../../redux/actions'
+import {fetch} from '@redux-actions'
 
 
 const Products = (props) => {

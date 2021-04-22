@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react'
-import Table from '../../components/Table'
+import Table from '@components/Table'
 import Edit from './Edit'
 import CategoryIcon from '@material-ui/icons/Category';
 
