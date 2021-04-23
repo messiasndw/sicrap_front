@@ -10,7 +10,6 @@ const Products = (props) => {
 
     const dispatch = useDispatch()
     const Products = useSelector(({Products}) => Products)
-    console.log(Products)
 
     useEffect(() => {
         dispatch(fetch())
@@ -18,6 +17,10 @@ const Products = (props) => {
         return () => {
         }
     },[])
+
+    useEffect(() => {
+        console.log("Olha ai o filtro mudou")
+    },[Products.filter])
 
     
     const [items,setItems] = useState([

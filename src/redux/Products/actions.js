@@ -1,13 +1,22 @@
-import Axios from 'axios'
+import Axios from '../../services/api'
+import * as types from './types'
 
 import { FETCH, STORE } from './types'
 
-export const fetch = (payload) => async (dispatch,getState) => {
+export const applyFilter = (payload) => {
+    return {
+        type: types.APPLY_FILTER,
+        payload
+    }
+}
 
-    const response = await Axios.get('https://jsonplaceholder.typicode.com/posts')
+export const fetch = (payload) => async (dispatch,getState) => {
     const state = getState()
+    const response = await Axios.get('https://cat-fact.herokuapp.com/facts',{params:{...state.Products.filter}})
+    console.log(response)
+
     dispatch({
-        type:"FETCH",
+        type:types.FETCH,
         payload:response.data
     })
     
@@ -15,7 +24,7 @@ export const fetch = (payload) => async (dispatch,getState) => {
 
 export const store = (payload) => {
     return {
-        type: STORE,
+        type: types.STORE,
         payload
     };
 };
