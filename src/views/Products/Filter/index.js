@@ -35,10 +35,10 @@ const Filter = ({ isOpen, handleClose }) => {
     }
 
     useEffect(() => {
-        console.log(form)
     },[form])
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         console.log(form)
         dispatch(applyFilter(form))
         handleClose()
@@ -50,14 +50,13 @@ const Filter = ({ isOpen, handleClose }) => {
             onEnter={onEnter}
             handleSubmit={handleSubmit}
             handleClose={handleClose}
-            // handleSubmit={handleSubmit}
             isOpen={isOpen}
             cancelTitle={"Cancel"}
             submitTitle={"Apply"}
             title={"Filter Product"}>
             <Grid container spacing={3}>
                 <Grid item md={6} sm={12} xs={12}>
-                    <Input required
+                    <Input 
                         placeholder="Name"
                         isClearable
                         onClear={() => setForm((prevState) => ({ ...prevState, name: '' }))}
@@ -85,7 +84,6 @@ const Filter = ({ isOpen, handleClose }) => {
                         placeholder="Code"
                         value={form.code || ''}
                         onClear={() => setForm((prevState) => ({ ...prevState, code: '' }))}
-                        required
                         id="code"
                         label="Code"
                         name="code"
@@ -94,7 +92,6 @@ const Filter = ({ isOpen, handleClose }) => {
                     />
                 </Grid>
             </Grid>
-
         </ModalDialog>
     )
 

@@ -4,6 +4,7 @@ import * as types from './types'
 const INIT_STATE = {
     filter: {},
     fetching:false,
+    random: "a",
     data: [
         {
             name: "Car",

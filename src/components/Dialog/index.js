@@ -29,9 +29,15 @@ export default function FormDialog(props) {
       </Button> */}
 
       <Dialog onEnter={props.onEnter} onExited={props.onExited} disableBackdropClick disableEscapeKeyDown classes={{ paperWidthSm: classes.paperWidthSm }} open={props.isOpen} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+        
         <DialogTitle classes={{ root: classes.titleRoot }} id="form-dialog-title">{props.title}</DialogTitle>
+
         <DialogContent classes={{ root: classes.contentRoot }}>
+      <form id="dialogForm" onSubmit={props.handleSubmit}>
+
           {props.children}
+        </form>
+
           {/* <DialogContentText>
             To subscribe to this website, please enter your email address here. We will send updates
             occasionally.
@@ -46,14 +52,16 @@ export default function FormDialog(props) {
           /> */}
         </DialogContent>
         <DialogActions>
-          <Button classes={{ text: classes.button }} onClick={props.handleClose}>
+          <Button classes={{ text: classes.button }} onClick={props.handleClose} >
             {props.cancelTitle}
           </Button>
-          <Button classes={{ text: classes.button }} onClick={props.handleSubmit}>
+          <Button form="dialogForm" type="submit" classes={{ text: classes.button }} >
             {props.submitTitle}
           </Button>
         </DialogActions>
+
       </Dialog>
+
     </div>
   );
 }

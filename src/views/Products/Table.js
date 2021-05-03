@@ -38,7 +38,7 @@ const DataTable = () => {
 
     return (
         <>
-            <Table head={head} items={stateData} handleDelete={handleDelete} name={"products"} loading={false} handleEdit={handleEdit} toolbarOptions={toolbarOptions} />
+            <Table head={head} items={stateData} handleDelete={handleDelete} name={"products"} loading={fetching} handleEdit={handleEdit} toolbarOptions={toolbarOptions} />
             <Edit isOpen={modal.open == 'edit'} data={modal.data} setModal={setModal} />
         </>
     )
