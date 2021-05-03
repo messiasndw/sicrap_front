@@ -45,10 +45,8 @@ api.interceptors.response.use(function (response) {
 
     switch (response.status) {
         case 200:
-            console.log("tudo ok")
             break;
         case 400:
-            console.log("erro 400")
             break;
         default:
             break;
@@ -56,7 +54,6 @@ api.interceptors.response.use(function (response) {
 
     return response.data
 }, function (error) {
-    console.log("err")
     return Promise.reject(error);
 });
 

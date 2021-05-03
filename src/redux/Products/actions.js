@@ -11,15 +11,18 @@ export const applyFilter = (payload) => {
 }
 
 export const fetch = (payload) => async (dispatch,getState) => {
-    const state = getState()
-    const response = await Axios.get('https://cat-fact.herokuapp.com/facts',{params:{...state.Products.filter}})
-    console.log(response)
 
     dispatch({
         type:types.FETCH,
-        payload:response.data
     })
-    
+
+    const state = getState()
+    const response = await Axios.get('https://cat-fact.herokuapp.com/facts',{params:{...state.Products.filter}})
+    const data = response
+    dispatch({
+        type:types.UPDATE_STATE,
+        payload:{data: [],fetching: false}
+    })
 };
 
 export const store = (payload) => {

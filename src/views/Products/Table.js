@@ -2,14 +2,16 @@ import React, { useCallback, useState, useRef, useEffect } from 'react'
 import Table from '@components/Table'
 import Edit from './Edit'
 import CategoryIcon from '@material-ui/icons/Category';
+import {useSelector} from 'react-redux'
 
-const DataTable = ({ data, loading }) => {
+const DataTable = () => {
 
+    const {fetching, data} = useSelector(({Products}) => {return Products})
+    
     const [modal, setModal] = useState({ open: null, data: {} })
-
     const [stateData, setData] = useState([...data])
 
-    //PASSING DATA PROPS TO THIS PARENT'S STATE IS ESSENTIALY TO MAKE TABLE SELECTION WORK
+    //PASSING DATA PROPS TO THIS PARENT'S STATE IS REQUIRED TO MAKE TABLE SELECTION WORK
     useEffect(() => {
         setData(data)
     }, [data])
@@ -36,7 +38,7 @@ const DataTable = ({ data, loading }) => {
 
     return (
         <>
-            <Table head={head} items={stateData} handleDelete={handleDelete} name={"products"} loading={loading} handleEdit={handleEdit} toolbarOptions={toolbarOptions} />
+            <Table head={head} items={stateData} handleDelete={handleDelete} name={"products"} loading={false} handleEdit={handleEdit} toolbarOptions={toolbarOptions} />
             <Edit isOpen={modal.open == 'edit'} data={modal.data} setModal={setModal} />
         </>
     )
