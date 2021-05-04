@@ -7,7 +7,7 @@ import Select from '@components/Select'
 import InputLabel from '@components/InputLabel';
 import ComboBox from '@components/ComboBox'
 import {useDispatch, useSelector} from 'react-redux'
-import {applyFilter} from '@redux-actions'
+import {applyFilter, fetchProducts} from '@redux-actions'
 
 const Filter = ({ isOpen, handleClose }) => {
 
@@ -41,6 +41,7 @@ const Filter = ({ isOpen, handleClose }) => {
         e.preventDefault()
         console.log(form)
         dispatch(applyFilter(form))
+        dispatch(fetchProducts())
         handleClose()
     }
 

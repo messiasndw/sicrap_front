@@ -2,27 +2,27 @@ import React, { useCallback, useState, useRef, useEffect } from 'react'
 import Table from '@components/Table'
 import Edit from './Edit'
 import CategoryIcon from '@material-ui/icons/Category';
-import {useSelector} from 'react-redux'
 
-const DataTable = () => {
+const DataTable = ({data,fetching}) => {
 
-    const {fetching, data} = useSelector(({Products}) => {return Products})
-    
     const [modal, setModal] = useState({ open: null, data: {} })
     const [stateData, setData] = useState([...data])
-
+    console.log('table run')
     //PASSING DATA PROPS TO THIS PARENT'S STATE IS REQUIRED TO MAKE TABLE SELECTION WORK
     useEffect(() => {
-        setData(data)
-    }, [data])
+        setData((prevState) => {
+            return [...data]
+        })
+        console.log("apply data")
+    },[data])
 
-    const handleEdit = ((items) => {
+    const handleEdit = useCallback(((items) => {
         setModal({ open: 'edit', data: items })
-    })
+    }))
 
-    const handleDelete = (selectedItem) => {
+    const handleDelete = useCallback((selectedItem) => {
         setModal({ modal: 'edit', data: selectedItem })
-    }
+    })
 
     const toolbarOptions = [
         {icon:<CategoryIcon/>, tooltip:"Edit Categories", multiple:false, onClick: ((numSelected) => {})}
@@ -45,4 +45,4 @@ const DataTable = () => {
 
 }
 
-export default DataTable
+export default React.memo(DataTable)

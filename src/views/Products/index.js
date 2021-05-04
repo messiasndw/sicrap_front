@@ -1,28 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Table from './Table'
+import Table from './Table/index'
 import Grid from '@material-ui/core/Grid';
-import HeaderOptions from './HeaderOptions'
+import Toolbar from './Toolbar'
 import { useSelector, useDispatch } from 'react-redux'
-import {fetch} from '@redux-actions'
-
+import {fetchProducts} from '@redux-actions'
 
 const Products = (props) => {
-
+    
     const dispatch = useDispatch()
-    // const filter = useSelector(({Products}) => Products.filter, (prev,next) => prev === next)
-    const filter = useSelector(({Products}) => Products.filter)
+
+    const data = useSelector(({Products}) => Products.data);
+    const fetching = useSelector(({Products}) => Products.fetching);
 
     useEffect(() => {
-        dispatch(fetch())
+        setTimeout(function(){ dispatch(fetchProducts()); }, 3000);
+        
     },[])
-
-    // IF FILTER IS DIFFERENT THAN {} THEN FETCH! BASICALLY WHENEVER FILTER CHANGES AFTER FIRST RENDER
-    !!Object.keys(filter).length && dispatch(fetch())
 
     return (
         <Grid item md={12} sm={12} xs={12}>
-            <HeaderOptions/>
-            <Table/>
+            <Toolbar/>
+            <Table data={data} fetching={fetching}/>
         </Grid>
     )
 
