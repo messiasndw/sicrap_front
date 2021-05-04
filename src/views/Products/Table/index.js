@@ -6,13 +6,11 @@ import CategoryIcon from '@material-ui/icons/Category';
 const DataTable = ({data,fetching}) => {
 
     const [modal, setModal] = useState({ open: null, data: {} })
-    const [stateData, setData] = useState([...data])
+    const [stateData, setData] = useState(data)
     console.log('table run')
     //PASSING DATA PROPS TO THIS PARENT'S STATE IS REQUIRED TO MAKE TABLE SELECTION WORK
     useEffect(() => {
-        setData((prevState) => {
-            return [...data]
-        })
+        setData(data)
         console.log("apply data")
     },[data])
 
