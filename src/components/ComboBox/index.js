@@ -17,15 +17,14 @@ export default function ComboBox({ options = [], onChange, name, placeholder, va
             classes={{ root: classes.autoCompleteRoot }}
             // freeSolo={true}
             {...props}
-            value={value}
+            value={value[0] || {}}
             options={options}
             onChange={(event, value, reason) => { onChange(event, !!value ? { ...value, name: name } : { label: "", value: "", name: name }, reason) }}
-            id="combo-box-demo"
+            // id="combo-box-demo"
             getOptionLabel={(option) => option.label || ''}
             //   style={{ width: 300 }}
             renderInput={(params) => {
                 // <FormControl fullWidth variant="outlined">
-                console.log(params.InputProps.endAdornment.props.children)
                 return (
                     <TextField {...params} classes={{ root: classes.inputRoot }}
                         InputProps={{

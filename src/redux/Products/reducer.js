@@ -2,9 +2,11 @@
 import * as types from './types'
 
 const INIT_STATE = {
-    filter: {},
-    fetching:false,
-    random: "a",
+    filter: {
+        perPage: 15
+    },
+    fetching: false,
+    storing: false,
     data: [
         {
             name: "Car",
@@ -52,6 +54,8 @@ export default function (state = INIT_STATE, action) {
             return { ...state, filter: { ...action.payload } }
         case types.FETCH:
             return { ...state, fetching: true }
+        case types.STORE:
+            return { ...state, storing: true }
         case types.UPDATE_STATE:
             return { ...state, ...action.payload }
         default:

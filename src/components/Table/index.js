@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -25,6 +25,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '../../components/Button/index';
 import ListIcon from '@material-ui/icons/List';
 import Chip from '../Chip';
+import { IndeterminateCheckBoxSharp } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     tableRowRoot: {
@@ -141,7 +142,7 @@ function EnhancedTableHead(props) {
     const createSortHandler = (property) => (event) => {
         onRequestSort(event, property);
     };
-
+    console.log("reusual table run")
     return (
         <TableHead>
             <TableRow>
@@ -276,14 +277,19 @@ EnhancedTableToolbar.propTypes = {
 
 
 export default function EnhancedTable({ items = [], head = [], handleEdit, handleDelete, name = 'item', loading, deleteButton, editButton, toolbarOptions }) {
+
+    
+
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState(head[1].id);
+    const [orderBy, setOrderBy] = React.useState();
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+    useEffect(() => {
+        setSelected([])
+    },[items])
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
