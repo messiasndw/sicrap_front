@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid';
 import ModalDialog from '../../../components/Dialog'
-import Input from '../../../components/Input/index';
+import Input from '@components/Input/index';
 import FormControl from '@material-ui/core/FormControl';
 import Switch from '../../../components/Switch'
+import {storeProducts} from '@redux-actions'
+import {useDispatch, useSelector} from 'react-redux'
 
-const Filter = ({isOpen, handleClose}) => {
 
-    const [form,setForm] = useState({
-        active: '',
+const New = ({ isOpen, handleClose }) => {
+
+    const dispatch = useDispatch()
+    const storing = useSelector(({Products}) => Products.storing )
+    // const {storing} = useSelector(({Products}) => Products)
+    console.log(storing)
+    console.log("new render")
+
+    const [form, setForm] = useState({
+        active: 1,
         name: '',
         code: ''
     })
@@ -28,49 +37,47 @@ const Filter = ({isOpen, handleClose}) => {
 
     const onExited = () => {
         setForm({
-            active:'',
-            code:'',
-            name:''
+            active: 1,
+            code: '',
+            name: ''
         })
+    }
+
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        dispatch(storeProducts({form,handleClose}))
     }
 
     return (
         <ModalDialog
             onExited={onExited}
-            // onEnter={onEnter}
             handleClose={handleClose}
-            // handleSubmit={handleSubmit}
+            handleSubmit={handleSubmit}
             isOpen={isOpen}
             cancelTitle={"Cancel"}
             submitTitle={"Create"}
             title={"New Product"}>
             <Grid container spacing={3}>
-            <Grid item md={6} sm={12} xs={12}>
-                    <FormControl fullWidth variant="outlined">
-                        <Input required
-                            // defaultValue={data.name}
-                            id="name"
-                            name="name"
-                            label="Name"
-                            fullWidth
-                            onChange={handleInputChange}
-                        // autoComplete="cc-name" 
-                        />
-                    </FormControl>
+                <Grid item md={6} sm={12} xs={12}>
+                    <Input
+                        disabled={storing}
+                        placeholder="Name"
+                        name="name"
+                        label="Name"
+                        fullWidth
+                        value={form.name || ''}
+                        onChange={handleInputChange}
+                    />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <FormControl fullWidth variant="outlined">
-                        <Input
-                            // value={data.id || ''}
-                            // defaultValue={data.id}
-                            required
-                            id="code"
-                            label="Code"
-                            name="code"
-                            fullWidth
-                            // onChange={handleInputChange}
-                        />
-                    </FormControl>
+                    <Input
+                        placeholder="Code"
+                        name="code"
+                        label="Code"
+                        fullWidth
+                        value={form.code || ''}
+                        onChange={handleInputChange}
+                    />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <FormControl fullWidth variant="outlined">
@@ -87,4 +94,4 @@ const Filter = ({isOpen, handleClose}) => {
 
 }
 
-export default Filter
+export default New

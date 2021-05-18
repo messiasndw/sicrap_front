@@ -7,7 +7,7 @@ import Select from '@components/Select'
 import InputLabel from '@components/InputLabel';
 import ComboBox from '@components/ComboBox'
 import {useDispatch, useSelector} from 'react-redux'
-import {applyFilter, fetchProducts} from '@redux-actions'
+import {applyFilterProducts, fetchProducts} from '@redux-actions'
 
 const Filter = ({ isOpen, handleClose }) => {
 
@@ -31,21 +31,22 @@ const Filter = ({ isOpen, handleClose }) => {
         setForm((prevState) => (
             { ...prevState, [input.name]: input.value }
         ))
-        console.log(reason)
     }
 
     useEffect(() => {
+        console.log(form)
     },[form])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(form)
-        dispatch(applyFilter(form))
+        dispatch(applyFilterProducts(form))
         dispatch(fetchProducts())
         handleClose()
     }
 
     const activeOptions = [{ label: "Active", value: 1 }, { label: "Idle", value: 0 }]
+    const perPageOptions = [{ label: "5", value: 5 }, { label: "10", value: 10 }, { label: "15", value: 15 }, { label: "20", value: 20 }]
+
     return (
         <ModalDialog
             onEnter={onEnter}
@@ -69,16 +70,7 @@ const Filter = ({ isOpen, handleClose }) => {
                         onChange={handleInputChange}
                     />
                 </Grid>
-
-                <Grid item xs={12} md={6}>
-                    <InputLabel children="Status" />
-                    <FormControl fullWidth variant="outlined">
-                        <ComboBox name="active"
-                            value={activeOptions.filter(option => option.value===form.active)[0] || {}}
-                            onChange={handleSelectChange}
-                            options={activeOptions} />
-                    </FormControl>
-                </Grid>
+                
                 <Grid item xs={12} md={6}>
                     <Input
                         isClearable
@@ -92,6 +84,27 @@ const Filter = ({ isOpen, handleClose }) => {
                         onChange={handleInputChange}
                     />
                 </Grid>
+
+                <Grid item xs={12} md={6}>
+                    <InputLabel children="Status" />
+                    <FormControl fullWidth variant="outlined">
+                        <ComboBox name="active"
+                            value={activeOptions.filter(option => option.value===form.active)}
+                            onChange={handleSelectChange}
+                            options={activeOptions} />
+                    </FormControl>
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                    <InputLabel children="Per Page" />
+                    <FormControl fullWidth variant="outlined">
+                        <ComboBox name="perPage"
+                            value={perPageOptions.filter(option => option.value===form.perPage)}
+                            onChange={handleSelectChange}
+                            options={perPageOptions} />
+                    </FormControl>
+                </Grid>
+
             </Grid>
         </ModalDialog>
     )

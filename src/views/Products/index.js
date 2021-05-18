@@ -11,10 +11,9 @@ const Products = (props) => {
 
     const data = useSelector(({Products}) => Products.data);
     const fetching = useSelector(({Products}) => Products.fetching);
-
     useEffect(() => {
-        setTimeout(function(){ dispatch(fetchProducts()); }, 3000);
-        
+        // setTimeout(function(){ dispatch(fetchProducts()); }, 3000);
+        dispatch(fetchProducts())
     },[])
 
     return (

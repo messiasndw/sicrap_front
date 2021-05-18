@@ -26,7 +26,7 @@ const AuthLayout = ({ main, header }) => {
                 />
                 :
             <AuthGrid
-                leftbar={<Leftbar isOpen={sideBar}/>}
+                leftbar={<Leftbar />}
                 header={header}
                 main={main}
                 rightbar={null}

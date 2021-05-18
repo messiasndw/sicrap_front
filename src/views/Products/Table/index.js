@@ -2,25 +2,22 @@ import React, { useCallback, useState, useRef, useEffect } from 'react'
 import Table from '@components/Table'
 import Edit from './Edit'
 import CategoryIcon from '@material-ui/icons/Category';
+import Pagination from '@components/Pagination'
 
 const DataTable = ({data,fetching}) => {
 
     const [modal, setModal] = useState({ open: null, data: {} })
-    const [stateData, setData] = useState(data)
     console.log('table run')
     //PASSING DATA PROPS TO THIS PARENT'S STATE IS REQUIRED TO MAKE TABLE SELECTION WORK
-    useEffect(() => {
-        setData(data)
-        console.log("apply data")
-    },[data])
+  
 
     const handleEdit = useCallback(((items) => {
         setModal({ open: 'edit', data: items })
-    }))
+    }),[])
 
     const handleDelete = useCallback((selectedItem) => {
         setModal({ modal: 'edit', data: selectedItem })
-    })
+    },[])
 
     const toolbarOptions = [
         {icon:<CategoryIcon/>, tooltip:"Edit Categories", multiple:false, onClick: ((numSelected) => {})}
@@ -36,7 +33,8 @@ const DataTable = ({data,fetching}) => {
 
     return (
         <>
-            <Table head={head} items={stateData} handleDelete={handleDelete} name={"products"} loading={fetching} handleEdit={handleEdit} toolbarOptions={toolbarOptions} />
+            <Table head={head} items={data} handleDelete={handleDelete} name={"products"} loading={fetching} handleEdit={handleEdit} toolbarOptions={toolbarOptions} />
+            <Pagination pages={5} />
             <Edit isOpen={modal.open == 'edit'} data={modal.data} setModal={setModal} />
         </>
     )
