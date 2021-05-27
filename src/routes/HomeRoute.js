@@ -4,25 +4,24 @@ import {
     Route,
     Redirect,
 } from "react-router-dom";
-import HomeLayout from '../layouts/Home'
+import HomeLayout from '../layouts/Home/index'
 import {useSelector} from 'react-redux'
 
-const DefaultRoute = ({ component: Component, header, ...rest }) => {
+const AuthRoutes = ({ component: Component, header, ...rest }) => {
 
     const isAuth = useSelector(({User}) => User.isAuth)
     console.log("aqui")
-    console.log(!!localStorage.getItem('accessToken'))
+    console.log(localStorage.getItem('accessToken'))
     console.log("aqui")
-
     return (
             <Route
                 {...rest}
-                render={(props) => !localStorage.getItem('accessToken')
+                render={(props) => (!isAuth || !!localStorage.getItem('accessToken'))
                     ? 
-                    <HomeLayout main={<Component {...props} />}/>
+                    <HomeLayout/>
                     : <Redirect to={{ pathname: '/profile', state: { from: props.location } }} />}
             />
     )
 }
 
-export default DefaultRoute
+export default AuthRoutes

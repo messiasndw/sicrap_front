@@ -1,5 +1,5 @@
 
-import * as types from './types'
+import * as types from '../types'
 
 const INIT_STATE = {
     filter: {
@@ -52,11 +52,11 @@ export default function (state = INIT_STATE, action) {
     switch (action.type) {
         case types.APPLY_FILTER:
             return { ...state, filter: { ...action.payload } }
-        case types.FETCH:
+        case types.PRODUCTS_FETCH:
             return { ...state, fetching: true }
-        case types.STORE:
+        case types.PRODUCTS_STORE:
             return { ...state, storing: true }
-        case types.UPDATE_STATE:
+        case types.PRODUCTS_UPDATE_STATE:
             return { ...state, ...action.payload }
         default:
             return state

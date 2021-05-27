@@ -5,10 +5,11 @@ import {
 import Route from './Route'
 import React from "react";
 import AuthRoute from './AuthRoute'
+import HomeRoute from './HomeRoute'
 import Login from '../views/Login'
 import Profile from '../views/Profile'
 import Products from '../views/Products'
-import Table from '../components/Table'
+import Register from '../views/Register'
 
 const Routers = (props) => {
 
@@ -16,7 +17,8 @@ const Routers = (props) => {
         <Router>
             <Switch>
                 
-                <Route exact path="/"><h1>HOME</h1></Route>
+                <Route exact path="/" component={() => <h1>aa</h1>} />
+                <Route exact path="/register" component={() => <Register/>} />
                 <Route exact path="/login" component={() => <Login/>} />
                 <AuthRoute exact path='/profile' component={() => <Profile />} header="Profile" />
                 <AuthRoute exact path='/products' component={() => <Products/>} header="Products" />

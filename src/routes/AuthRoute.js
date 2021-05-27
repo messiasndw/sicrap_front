@@ -5,15 +5,19 @@ import {
     Redirect,
 } from "react-router-dom";
 import AuthLayout from '../layouts/Auth/index'
+import {useSelector} from 'react-redux'
 
 const AuthRoutes = ({ component: Component, header, ...rest }) => {
+
+    const isAuth = useSelector(({User}) => User.isAuth)
+    
     return (
             <Route
                 {...rest}
-                render={(props) => true === true
+                render={(props) => isAuth || !!localStorage.getItem('accessToken')
                     ? 
                     <AuthLayout main={<Component {...props}/>} header={header} />
-                    : <Redirect to={{ pathname: '/', state: { from: props.location } }} />}
+                    : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />}
             />
     )
 }

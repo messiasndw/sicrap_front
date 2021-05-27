@@ -13,17 +13,20 @@ export default function Grid({ leftbar, main, header }) {
     const gridTemplateColumns = matches ? "20vw 80vw" : "20vw 70vw 10vw"
 
     const classes = useStyles()
+    
     return (
         <div className="grid-container" style={{gridTemplateColumns: gridTemplateColumns}} >
             <div className="Leftbar ">{leftbar}</div>
             <div className="Main containerChild">
-                <div className="mainContent" style={{display:"flex", justifyContent:"center", height:"fit-content", width:"90%"}}>
+                <div className="mainContent" style={{display:"flex", justifyContent:"center", width:"90%"}}>
                     {main}
                 </div>
             </div>
             <div className="RightBar containerChild"></div>
             <div className="Header containerChild" style={{ padding: "20px" }}>
+                
                 <div className="headerContent" style={{ width: "90%", height: "100%", margin: "auto", textAlign: "left" }}>
+                    
                     <CardComponent classes={{ root: classes.headerRoot }}>
                         <Typography classes={{ root: classes.headerText }} variant="h4" component="h2" gutterBottom>
                             {header}

@@ -69,13 +69,6 @@ const LeftbarSkeleton = (props) => {
 
     const classes = useStyles();
 
-    const menus = props.menusSidebar.map((menu, key) => {
-        return (<ListItem button key={key}>
-            <ListItemIcon>{menu.icon}</ListItemIcon>
-            <ListItemText primary={menu.name} />
-        </ListItem>)
-    })
-
     const buttonStyle = menu == 'profile' ? { ...classes.rootActiveButton, ...classes.rootButton } : { ...classes.rootButton }
 
     return (
@@ -85,17 +78,17 @@ const LeftbarSkeleton = (props) => {
                     
                     <ProfileCard />
 
-                    <Grid classes={{root:classes.gridRoot}} item xs={12}>
-                        <Skeleton classes={{root:classes.skeletonRoot}} variant="rect" width="50" height="45px" />
+                    <Grid container justify='center' alignItems='center' classes={{root:classes.gridRoot}} item xs={12}>
+                        <Skeleton classes={{root:classes.skeletonRoot}} variant="rect" width="80%" height="45px" />
                     </Grid>
-                    <Grid classes={{root:classes.gridRoot}} item xs={12}>
-                    <Skeleton classes={{root:classes.skeletonRoot}} variant="rect" width="50" height="45px" />
+                    <Grid container justify='center' alignItems='center' classes={{root:classes.gridRoot}} item xs={12}>
+                        <Skeleton classes={{root:classes.skeletonRoot}} variant="rect" width="80%" height="45px" />
                     </Grid>
-                    <Grid classes={{root:classes.gridRoot}} item xs={12}>
-                    <Skeleton classes={{root:classes.skeletonRoot}} variant="rect" width="50" height="45px" />
+                    <Grid container justify='center' alignItems='center' classes={{root:classes.gridRoot}} item xs={12}>
+                        <Skeleton classes={{root:classes.skeletonRoot}} variant="rect" width="80%" height="45px" />
                     </Grid>
-                    <Grid classes={{root:classes.gridRoot}} item xs={12}>
-                    <Skeleton classes={{root:classes.skeletonRoot}} variant="rect" width="50" height="45px" />
+                    <Grid container justify='center' alignItems='center' classes={{root:classes.gridRoot}} item xs={12}>
+                        <Skeleton classes={{root:classes.skeletonRoot}} variant="rect" width="80%" height="45px" />
                     </Grid>
                 </Grid>
             </Drawer>
