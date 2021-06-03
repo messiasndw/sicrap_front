@@ -10,6 +10,8 @@ const INIT_STATE = {
 
 export default function (state = INIT_STATE, action) {
     switch (action.type) {
+        case types.USER_REGISTER:
+            return { ...state, isSigningUp: true }
         case types.USER_LOGIN:
             return { ...state, isLogging: true }
         case types.USER_ME:

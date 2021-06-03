@@ -8,8 +8,12 @@ import FormControl from '@material-ui/core/FormControl';
 import DatePicker from '../../components/DatePicker/index'
 import Input from '../../components/Input/index';
 import ComboBox from '@components/ComboBox'
+import {useDispatch,useSelector} from 'react-redux'
+import {register} from '@redux-actions'
 
 const Register = () => {
+
+    const dispatch = useDispatch()
 
     const [form, setForm] = useState({
         name: '',
@@ -20,6 +24,8 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        dispatch(register(form))
+        console.log(form)
     }
 
     const handleChange = (e) => {
@@ -34,16 +40,23 @@ const Register = () => {
         ))
     }
 
-    const genderOptions = [{ label: 'Male', value: 'male' }, { label: 'Female', value: 'female' }, { label: 'None', value: 'none' }]
+    const handleDateChange = (date,value) => {
+        setForm((prevState) => ({
+            ...prevState,birthday: value
+        }))
+    }
+
+    const genderOptions = [{ label: 'Male', value: 'male' }, { label: 'Female', value: 'female' }, { label: 'Other', value: 'other' }]
 
     return (
         <Grid container xs={12} justify="center">
             <CardComponent>
-                <form noValidate>
+                <form onSubmit={handleSubmit} noValidate>
                     <Grid container justify='center' alignItems='center' spacing={3}>
 
                         <Grid item xs={12} md={12}>
                             <Input required
+                                placeholder='Name'
                                 id="name"
                                 name="name"
                                 label="Name"
@@ -65,6 +78,19 @@ const Register = () => {
                             />
                         </Grid>
                         <Grid item xs={12} md={12}>
+                            <Input
+                                placeholder='Password'
+                                required
+                                id="password"
+                                label="Password"
+                                name="password"
+                                fullWidth
+                                value={form.password}
+                                type='password'
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={12}>
                             <InputLabel children="Gender" />
                             <FormControl fullWidth >
                                 <ComboBox name="gender"
@@ -81,6 +107,8 @@ const Register = () => {
                                     autoOk
                                     variant="inline"
                                     // margin="normal"
+                                    inputValue={form.birthday}
+                                    onChange={handleDateChange}
                                     label="Birthday" />
                             </FormControl>
                         </Grid>

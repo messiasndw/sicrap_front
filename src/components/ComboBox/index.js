@@ -8,7 +8,7 @@ import Input from '@material-ui/core/Input';
 import useStyles from './style'
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 
-export default function ComboBox({ options = [], onChange, name, placeholder, value, ...props }) {
+export default function ComboBox({ options = [], onChange, name, placeholder, value, isClearable = false, ...props }) {
 
     const classes = useStyles()
 
@@ -29,7 +29,7 @@ export default function ComboBox({ options = [], onChange, name, placeholder, va
                     <TextField {...params} classes={{ root: classes.inputRoot }}
                         InputProps={{
                             ...params.InputProps, classes: { underline: classes.underline, root: classes.inputRoot },
-                            endAdornment: [!!value && Object.keys(value).length > 0 && <IconButton key={0} onClick={params.InputProps.endAdornment.props.children[0].props.onClick} classes={{ root: classes.IconButtonRoot }}><CancelRoundedIcon classes={{ root: classes.iconRoot }} /></IconButton>,
+                            endAdornment: [!!value && Object.keys(value).length > 0 && isClearable && <IconButton key={0} onClick={params.InputProps.endAdornment.props.children[0].props.onClick} classes={{ root: classes.IconButtonRoot }}><CancelRoundedIcon classes={{ root: classes.iconRoot }} /></IconButton>,
                             params.InputProps.endAdornment.props.children[1]],
                         }} placeholder={placeholder || 'Select'} />)
             }}

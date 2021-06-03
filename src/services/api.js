@@ -1,6 +1,6 @@
 import Axios from 'axios'
-import {toast} from 'react-toastify'
-import {logout} from '@redux-actions'
+import { toast } from 'react-toastify'
+import { logout } from '@redux-actions'
 import store from '../redux/store'
 
 const BASE_URL = {
@@ -27,8 +27,8 @@ api.interceptors.request.use(async (config) => {
     }
 
     const token = localStorage.getItem('accessToken')
-    
-    if(!!token){
+
+    if (!!token) {
         config.headers.Authorization = "Bearer " + token
     }
 
@@ -47,18 +47,22 @@ api.interceptors.response.use(function (response) {
         default:
             break;
     }
-
     return response.data
 }, function (error) {
-
     switch (error.response.status) {
         case 401:
             toast.error(error.response.data.msg)
-            const {dispatch} = store
+            const { dispatch } = store
             dispatch(logout())
-            console.log("fez logout")
             break;
-        
+
+        case 422:
+            const {errors} = error.response.data
+            errors.forEach(element => {
+                toast.error(element.msg)
+            });
+            break;
+
         default:
             break;
     }

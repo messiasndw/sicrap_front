@@ -7,7 +7,6 @@ import {
 import useStyles from './styles';
 import InputLabel from '@material-ui/core/InputLabel';
 
-
 const DatePicker = (props) => {
 
     const classes = useStyles()
@@ -16,12 +15,12 @@ const DatePicker = (props) => {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
             inputProps={{classes:{underline:classes.underline}}}
-            InputProps={{classes:{underline:classes.underline}}}
+            maskChar={" "}            
                 // InputLabelProps={{ classes: { root: classes.root } }}
                 // InputProps={{ classes: { root: classes.root } }}
                 // classes={{root:classes.roots}}
                 {...props}
-                format={"dd/mm/yyyy"}
+                format={"MM/dd/yyyy"}
             />
         </MuiPickersUtilsProvider>
     )

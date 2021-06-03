@@ -5,12 +5,26 @@ import * as types from '../types'
 
 
 
-export const register = (payload) => (dispatch, getState) => {
+export const register = (payload) => async (dispatch, getState) => {
 
-    return {
+    dispatch({
         type: types.USER_REGISTER,
-        payload: payload
+    })
+
+    let updatedState = { isSigningUp: false }
+
+    try {
+        const response = await Axios.post('/register', { ...payload })
+        localStorage.setItem('accessToken', response.token)
+        updatedState = { ...updatedState, isAuth: true }
+    } catch (error) {
+
     }
+
+    dispatch({
+        type: types.USER_UPDATE_STATE,
+        payload: { ...updatedState, isSigningUp: false }
+    })
 
 }
 
@@ -49,8 +63,12 @@ export const me = (payload) => async (dispatch, getState) => {
 
     let updatedState = { isAuthenticating: false }
 
-    const response = await Axios.post('/me')
-    updatedState = { ...updatedState, isAuth: true }
+    try {
+        const response = await Axios.post('/me')
+        updatedState = {...updatedState, ...response.me, isAuth: true}
+    } catch (error) {
+
+    }
 
     dispatch({
         type: types.USER_UPDATE_STATE,
@@ -58,6 +76,7 @@ export const me = (payload) => async (dispatch, getState) => {
     })
 
 }
+
 
 export const logout = (payload) => {
 

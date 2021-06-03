@@ -9,18 +9,27 @@ import Select from '../../components/Select/index';
 import InputLabel from '../../components/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import DatePicker from '../../components/DatePicker/index'
-
+import {useSelector, useDispatch} from 'react-redux'
+import {me} from '@redux-actions'
 
 const Profile = (props) => {
 
+    const dispatch = useDispatch()
+    const {name,email} = useSelector(({User}) => User)
+
     const [form, setForm] = useState({
         gender: "male",
-        name:"",
-        email:"",
+        name:name,
+        email:email,
     })
 
     useEffect(() => {
         document.title = 'Sicrap | Profile'
+        // setForm((prevState) => ({
+        //     ...prevState,
+        //     name: name,
+        //     email: email,
+        // }))
     }, [])
 
     const handleSubmit = (e) => {

@@ -17,7 +17,7 @@ const DefaultRoute = ({ component: Component, header, ...rest }) => {
     return (
             <Route
                 {...rest}
-                render={(props) => !localStorage.getItem('accessToken')
+                render={(props) => !isAuth && !localStorage.getItem('accessToken')
                     ? 
                     <HomeLayout main={<Component {...props} />}/>
                     : <Redirect to={{ pathname: '/profile', state: { from: props.location } }} />}
