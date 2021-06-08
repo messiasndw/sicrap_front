@@ -7,7 +7,7 @@ import Select from '@components/Select'
 import InputLabel from '@components/InputLabel';
 import ComboBox from '@components/ComboBox'
 import {useDispatch, useSelector} from 'react-redux'
-import {applyFilterProducts, fetchProducts} from '@redux-actions'
+import {fetchProducts} from '@redux-actions'
 
 const Filter = ({ isOpen, handleClose }) => {
 
@@ -32,15 +32,11 @@ const Filter = ({ isOpen, handleClose }) => {
             { ...prevState, [input.name]: input.value }
         ))
     }
-
-    useEffect(() => {
-        console.log(form)
-    },[form])
-
+   
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(applyFilterProducts(form))
-        dispatch(fetchProducts())
+        // PAGE SHOULD ALWAYS BE ONE WHEN SETTING UP THE FILTER
+        dispatch(fetchProducts({...form, page: ''}))
         handleClose()
     }
 
@@ -89,6 +85,7 @@ const Filter = ({ isOpen, handleClose }) => {
                     <InputLabel children="Status" />
                     <FormControl fullWidth variant="outlined">
                         <ComboBox name="active"
+                            isClearable
                             value={activeOptions.filter(option => option.value===form.active)}
                             onChange={handleSelectChange}
                             options={activeOptions} />

@@ -1,9 +1,6 @@
-import { is } from 'date-fns/locale'
 import Axios from '../../services/api'
 import * as types from '../types'
-// import { useHistory } from "react-router-dom";
-
-
+import {toast} from 'react-toastify'
 
 export const register = (payload) => async (dispatch, getState) => {
 
@@ -85,5 +82,28 @@ export const logout = (payload) => {
         type: types.USER_UPDATE_STATE,
         payload: { isAuth: null }
     }
+
+}
+
+export const updateProfile = (payload) => async (dispatch, getState) => {
+
+    dispatch({
+        type: types.USER_UPDATE_PROFILE
+    })
+
+    let updatedState = { isUpdatingProfile: false }
+
+    try {
+        const response = await Axios.post('/profile', payload)
+        updatedState = {...updatedState, name: response.user.name}
+        toast.success(response.msg)
+    } catch (error) {
+
+    }
+
+    dispatch({
+        type: types.USER_UPDATE_STATE,
+        payload: { ...updatedState }
+    })
 
 }

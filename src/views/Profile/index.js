@@ -9,18 +9,19 @@ import Select from '../../components/Select/index';
 import InputLabel from '../../components/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import DatePicker from '../../components/DatePicker/index'
-import {useSelector, useDispatch} from 'react-redux'
-import {me} from '@redux-actions'
+import { useSelector, useDispatch } from 'react-redux'
+import ComboBox from '@components/ComboBox'
+import { updateProfile } from '@redux-actions'
 
 const Profile = (props) => {
 
     const dispatch = useDispatch()
-    const {name,email} = useSelector(({User}) => User)
+    const { name, email, gender, isUpdatingProfile } = useSelector(({ User }) => User)
 
     const [form, setForm] = useState({
         gender: "male",
-        name:name,
-        email:email,
+        name: name,
+        email: email,
     })
 
     useEffect(() => {
@@ -34,10 +35,13 @@ const Profile = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        console.log(form)
+        dispatch(updateProfile(form))
     }
 
-    useEffect(()=>{
-    },[form])
+    useEffect(() => {
+        console.log(form)
+    }, [form])
 
     const handleChange = (e) => {
         const input = e.target
@@ -47,15 +51,21 @@ const Profile = (props) => {
         }))
     }
 
-    const onClear = (e) => {
-        const input = e.target
+    const handleSelectChange = (e, input) => {
         setForm((prevState) => ({
             ...prevState,
-            [input.name]: ""
+            [input.name]: input.value
         }))
     }
 
-    const genderOptions = [{label:"Male", value:'male'}, {label: "Female", value:"female"},{label:"Other",value:"other"}]
+    const handleDateChange = (date,value) => {
+        setForm((prevState) => ({
+            ...prevState,
+            birthday: value
+        }))
+    }
+
+    const genderOptions = [{ label: "Male", value: 'male' }, { label: "Female", value: "female" }, { label: "Other", value: "other" }]
 
     return (
         <>
@@ -65,15 +75,16 @@ const Profile = (props) => {
                         <Grid container spacing={3}>
 
                             <Grid item xs={12} md={6}>
-                                    <Input required
-                                        id="name"
-                                        name="name"
-                                        label="Name"
-                                        fullWidth
-                                        value={form.name}
-                                        onChange={handleChange}
-                                    // autoComplete="cc-name" 
-                                    />
+                                <Input required
+                                    id="name"
+                                    name="name"
+                                    label="Name"
+                                    fullWidth
+                                    value={form.name}
+                                    onChange={handleChange}
+                                    disabled={isUpdatingProfile}
+                                // autoComplete="cc-name" 
+                                />
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Input
@@ -84,34 +95,35 @@ const Profile = (props) => {
                                     fullWidth
                                     value={form.email}
                                     onChange={handleChange}
+                                    disabled={isUpdatingProfile}
                                 />
                             </Grid>
                             <Grid item xs={12} md={6}>
+                                <InputLabel children="Gender" />
+
                                 <FormControl fullWidth >
 
-                                    <InputLabel children="Gender" />
-                                    <Select
-                                        value={form.gender}
-                                        name="gender"
-                                        onChange={handleChange}
+                                    <ComboBox name="gender"
+                                        value={genderOptions.filter(option => option.value === form.gender)}
+                                        onChange={handleSelectChange}
                                         options={genderOptions}
+                                        disabled={isUpdatingProfile}
                                     />
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <FormControl fullWidth >
                                     <DatePicker
-                                        // inputVariant="outlined"
-                                        disableToolbar
-                                        autoOk
-                                        variant="inline"
-                                        // margin="normal"
-                                        label="Birthday" />
+                                        label="Birthday"
+                                        onChange={handleDateChange}
+                                        disabled={isUpdatingProfile}
+                                        inputValue={form.birthday}
+                                    />
                                 </FormControl>
                             </Grid>
 
                             <Grid container item xs={12} justify="flex-end">
-                                <Button type="submit" variant="contained">Save</Button>
+                                <Button disabled={isUpdatingProfile} type="submit" variant="contained">Save</Button>
                             </Grid>
                         </Grid>
                     </form>

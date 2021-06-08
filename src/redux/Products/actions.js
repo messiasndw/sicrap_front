@@ -1,6 +1,6 @@
 import Axios from '../../services/api'
 import * as types from '../types'
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 
 export const applyFilterProducts = (payload) => {
@@ -10,39 +10,51 @@ export const applyFilterProducts = (payload) => {
     }
 }
 
-export const fetchProducts = (payload) => async (dispatch,getState) => {
+export const fetchProducts = (payload) => async (dispatch, getState) => {
 
     dispatch({
-        type:types.PRODUCTS_FETCH,
+        type: types.APPLY_FILTER,
+        payload
+    })
+
+    dispatch({
+        type: types.PRODUCTS_FETCH,
     })
 
     const state = getState()
-    const response = await Axios.get('/products',{params:{...state.Products.filter}})
+    let updatedState = { isFetching: false }
+
+    try {
+        const response = await Axios.get('/products', { params: { ...state.Products.filter } })
+        updatedState = { ...updatedState, data: response.data, pagination: response.pagination }
+    } catch (error) {
+
+    }
+
     dispatch({
-        type:types.PRODUCTS_UPDATE_STATE,
-        payload:{data: [
-           
-            
-        ],fetching: false}
+        type: types.PRODUCTS_UPDATE_STATE,
+        payload: updatedState
     })
 };
 
-export const storeProducts = (payload) => async (dispatch,getState) => {
+export const storeProducts = (payload) => async (dispatch, getState) => {
 
     dispatch({
-        type:types.PRODUCTS_STORE,
+        type: types.PRODUCTS_STORE,
     })
 
-    console.log(payload.form)
 
-    const response = await Axios.get('https://cat-fact.herokuapp.com/facts',{params:{}})
+    try {
+        const response = await Axios.post('/products', payload.form)
+    } catch (error) {
+
+    }
 
     //CLOSES DIALOG MODAL AFTER REQUEST STORE IS DONE
     payload.handleClose()
 
     dispatch({
-        type:types.PRODUCTS_UPDATE_STATE,
+        type: types.PRODUCTS_UPDATE_STATE,
         payload: {storing: false}
     })
-    console.log("e")
 };

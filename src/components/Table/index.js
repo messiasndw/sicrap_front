@@ -26,6 +26,7 @@ import Button from '../../components/Button/index';
 import ListIcon from '@material-ui/icons/List';
 import Chip from '../Chip';
 import { IndeterminateCheckBoxSharp } from '@material-ui/icons';
+import {format} from 'date-fns'
 
 const useStyles = makeStyles((theme) => ({
     tableRowRoot: {
@@ -242,7 +243,7 @@ const EnhancedTableToolbar = (props) => {
 
             {numSelected > 0 && deleteButton && (
                 <Tooltip title="Delete">
-                    <IconButton classes={{ root: classes.icons }} onClick={() => handleDelete(selected.map((i, k) => (i.id)))} aria-label="delete">
+                    <IconButton classes={{ root: classes.icons }} onClick={() => handleDelete(selected.map((i, k) => (i._id)))} aria-label="delete">
                         <DeleteIcon />
                     </IconButton>
                 </Tooltip>
@@ -255,15 +256,15 @@ const EnhancedTableToolbar = (props) => {
                 </Tooltip>
             )
             }
-            {toolbarOptions.map((item,index) => {
+            {toolbarOptions.map((item, index) => {
                 return (
-                    numSelected==1 == !item.multiple ? 
-                    <Tooltip title={item.tooltip}>
-                        <IconButton classes={{ root: classes.icons }} onClick={() => {item.onClick(selected)}}>
-                            {item.icon}
-                        </IconButton>
-                    </Tooltip>
-                    : null
+                    numSelected == 1 == !item.multiple ?
+                        <Tooltip title={item.tooltip}>
+                            <IconButton classes={{ root: classes.icons }} onClick={() => { item.onClick(selected) }}>
+                                {item.icon}
+                            </IconButton>
+                        </Tooltip>
+                        : null
                 )
             })}
         </Toolbar>
@@ -278,8 +279,6 @@ EnhancedTableToolbar.propTypes = {
 
 export default function EnhancedTable({ items = [], head = [], handleEdit, handleDelete, name = 'item', loading, deleteButton, editButton, toolbarOptions }) {
 
-    
-
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState();
@@ -289,7 +288,7 @@ export default function EnhancedTable({ items = [], head = [], handleEdit, handl
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     useEffect(() => {
         setSelected([])
-    },[items])
+    }, [items])
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
@@ -400,7 +399,7 @@ export default function EnhancedTable({ items = [], head = [], handleEdit, handl
                                                             case 'date':
                                                                 return (
                                                                     <TableCell key={headIndex} component="th" id={labelId} scope="row" align="center" padding="none">
-                                                                        {row[head[headIndex].id]}
+                                                                        {!!row[head[headIndex].id] ? format(new Date(row[head[headIndex].id].toString()),'MM/dd/yyyy') : ''}
                                                                     </TableCell>)
                                                             case 'active':
                                                                 return (
@@ -419,18 +418,6 @@ export default function EnhancedTable({ items = [], head = [], handleEdit, handl
                                                                         {row[head[headIndex].id]}
                                                                     </TableCell>)
                                                         }
-
-                                                        // return (
-                                                        //     <>
-                                                        //         <TableCell key={headIndex} component="th" id={labelId} scope="row" align="center" padding="none">
-                                                        //             {
-                                                        //                 (head[headIndex].type == 'date' ? row[head[headIndex].id] :
-                                                        //                     head[headIndex].type == 'active' ? row[head[headIndex].id] == '1' ? <Chip type="success" label="Active" /> : <Chip type="danger" label="Idle" /> :
-                                                        //                         row[head[headIndex].id])
-                                                        //             }
-                                                        //         </TableCell>
-                                                        //     </>
-                                                        // )
                                                     })
                                                 }
                                             </TableRow>

@@ -10,7 +10,7 @@ const Products = (props) => {
     const dispatch = useDispatch()
 
     const data = useSelector(({Products}) => Products.data);
-    const fetching = useSelector(({Products}) => Products.fetching);
+    const isFetching = useSelector(({Products}) => Products.isFetching);
     useEffect(() => {
         // setTimeout(function(){ dispatch(fetchProducts()); }, 3000);
         dispatch(fetchProducts())
@@ -19,7 +19,7 @@ const Products = (props) => {
     return (
         <Grid item md={12} sm={12} xs={12}>
             <Toolbar/>
-            <Table data={data} fetching={fetching}/>
+            <Table data={data} isFetching={isFetching}/>
         </Grid>
     )
 
