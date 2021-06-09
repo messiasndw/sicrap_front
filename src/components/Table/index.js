@@ -188,7 +188,7 @@ EnhancedTableHead.propTypes = {
     onRequestSort: PropTypes.func.isRequired,
     onSelectAllClick: PropTypes.func.isRequired,
     order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-    orderBy: PropTypes.string.isRequired,
+    // orderBy: PropTypes.string.isRequired,
     rowCount: PropTypes.number.isRequired,
 };
 
@@ -258,7 +258,7 @@ const EnhancedTableToolbar = (props) => {
             {toolbarOptions.map((item, index) => {
                 return (
                     numSelected == 1 == !item.multiple ?
-                        <Tooltip title={item.tooltip}>
+                        <Tooltip title={item.tooltip} key={index}>
                             <IconButton classes={{ root: classes.icons }} onClick={() => { item.onClick(selected) }}>
                                 {item.icon}
                             </IconButton>
@@ -375,11 +375,11 @@ export default function EnhancedTable({ items = [], head = [], handleEdit, handl
 
                                         return (
                                             <TableRow
+                                                key={index}
                                                 hover
                                                 role="checkbox"
                                                 aria-checked={isItemSelected}
                                                 tabIndex={-1}
-                                                key={row.id}
                                                 selected={isItemSelected}
                                                 classes={{ selected: classes.selected, root: classes.tableRowRoot }}
                                             >

@@ -4,33 +4,30 @@ import ModalDialog from '../../../components/Dialog'
 import Input from '@components/Input/index';
 import FormControl from '@material-ui/core/FormControl';
 import Switch from '../../../components/Switch'
-import {storeProducts} from '@redux-actions'
-import {useDispatch, useSelector} from 'react-redux'
+import { storeProducts } from '@redux-actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { useForm } from '@hooks/useForm'
 
 const New = ({ isOpen, handleClose }) => {
 
     const dispatch = useDispatch()
-    const storing = useSelector(({Products}) => Products.storing )
-    // const {storing} = useSelector(({Products}) => Products)
 
-    const [form, setForm] = useState({
+    const initialValues = {
         active: 1,
-        name: '',
-        code: ''
+        code: '',
+        name: ''
+    }
+
+    const onSubmit = (form) => {
+        // dispatch(storeProducts({ form, handleClose }))
+    }
+
+    const { form, setForm, handleSubmit, handleInputChange, handleSwitchChange } = useForm({
+        initialValues,
+        onSubmit
     })
 
-    const handleInputChange = (e) => {
-        const input = e.target
-        setForm((prevState) => (
-            { ...prevState, [input.name]: input.value }
-        ))
-    }
-
-    const handleSwitchChange = (e) => {
-        setForm((prevState) => (
-            { ...prevState, active: e.target.checked ? 1 : 0 }
-        ))
-    }
+    const storing = useSelector(({ Products }) => Products.storing)
 
     const onExited = () => {
         setForm({
@@ -38,11 +35,6 @@ const New = ({ isOpen, handleClose }) => {
             code: '',
             name: ''
         })
-    }
-
-    const handleSubmit = (e) =>{
-        e.preventDefault()
-        dispatch(storeProducts({form,handleClose}))
     }
 
     return (

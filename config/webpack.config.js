@@ -327,6 +327,8 @@ module.exports = function (webpackEnv) {
       alias: {
         "@redux-actions": path.resolve(__dirname,'../src/redux/actions/'),
         "@components": path.resolve(__dirname,'../src/components/'),
+        "@hooks": path.resolve(__dirname,'../src/hooks/'),
+        "@context": path.resolve(__dirname,'../src/context/'),
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',

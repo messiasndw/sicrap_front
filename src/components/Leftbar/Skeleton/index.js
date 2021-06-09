@@ -1,28 +1,10 @@
 import React, { useState } from 'react';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import ProfileCard from './ProfileCard'
-import Box from '@material-ui/core/Box';
 
-import Icon from '@material-ui/core/Icon';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import CategoryIcon from '@material-ui/icons/Category';
 import Skeleton from '@material-ui/lab/Skeleton';
-import {
-    Link
-} from "react-router-dom";
 
 const useStyles = makeStyles({
     paper: {
@@ -73,8 +55,8 @@ const LeftbarSkeleton = (props) => {
 
     return (
         <>
-            <Drawer classes={{ paper: classes.paper }} variant={'permanent'} anchor={"left"} open={props.isOpen} >
-                <Grid spacing={12} container>
+            <Drawer classes={{ paper: classes.paper }} variant={'permanent'} anchor={"left"} >
+                <Grid container>
                     
                     <ProfileCard />
 

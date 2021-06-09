@@ -18,7 +18,6 @@ const AuthLayout = ({ main, header }) => {
         dispatch(me())
     }, [])
 
-    const [sideBar, setSidebar] = useState([])
     const [sb, setSb] = useState(false)
     const [s, set] = useState(false)
     return (
@@ -26,7 +25,7 @@ const AuthLayout = ({ main, header }) => {
             {
                 isAuthenticating || !isAuth  ?
                 <AuthGrid
-                    leftbar={<LeftbarSkeleton menusSidebar={[{}, {}, {}]} isOpen={sideBar} />}
+                    leftbar={<LeftbarSkeleton menusSidebar={[{}, {}, {}]}/>}
                     header={<Skeleton variant="text" width="460px" height="70px" />}
                     main={<Skeleton variant="rect" width="100%" height="100%" />}
                     rightbar={null}

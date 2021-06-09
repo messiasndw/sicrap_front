@@ -3,41 +3,29 @@ import Grid from '@material-ui/core/Grid';
 import ModalDialog from '@components/Dialog'
 import Input from '@components/Input/index';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@components/Select'
 import InputLabel from '@components/InputLabel';
 import ComboBox from '@components/ComboBox'
-import {useDispatch, useSelector} from 'react-redux'
-import {fetchProducts} from '@redux-actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchProducts } from '@redux-actions'
+import { useForm } from '@hooks/useForm'
 
 const Filter = ({ isOpen, handleClose }) => {
 
     const dispatch = useDispatch()
-    const filter = useSelector(({Products}) => Products.filter)
+    const filter = useSelector(({ Products }) => Products.filter)
 
-    const [form, setForm] = useState({})
+    const onSubmit = (form) => {
+        dispatch(fetchProducts({ ...form, page: '' }))
+        handleClose()
+    }
+
+    const { form, setForm, handleSubmit, handleInputChange, handleSelectChange } = useForm({
+        ...filter,
+        onSubmit
+    })
 
     const onEnter = () => {
-        setForm({...filter})
-    }
-
-    const handleInputChange = (e) => {
-        const input = e.target
-        setForm((prevState) => (
-            { ...prevState, [input.name]: input.value }
-        ))
-    }
-
-    const handleSelectChange = (e, input, reason) => {
-        setForm((prevState) => (
-            { ...prevState, [input.name]: input.value }
-        ))
-    }
-   
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        // PAGE SHOULD ALWAYS BE ONE WHEN SETTING UP THE FILTER
-        dispatch(fetchProducts({...form, page: ''}))
-        handleClose()
+        setForm({ ...filter })
     }
 
     const activeOptions = [{ label: "Active", value: 1 }, { label: "Idle", value: 0 }]
@@ -54,7 +42,7 @@ const Filter = ({ isOpen, handleClose }) => {
             title={"Filter Product"}>
             <Grid container spacing={3}>
                 <Grid item md={6} sm={12} xs={12}>
-                    <Input 
+                    <Input
                         placeholder="Name"
                         isClearable
                         onClear={() => setForm((prevState) => ({ ...prevState, name: '' }))}
@@ -66,7 +54,7 @@ const Filter = ({ isOpen, handleClose }) => {
                         onChange={handleInputChange}
                     />
                 </Grid>
-                
+
                 <Grid item xs={12} md={6}>
                     <Input
                         isClearable
@@ -86,7 +74,7 @@ const Filter = ({ isOpen, handleClose }) => {
                     <FormControl fullWidth variant="outlined">
                         <ComboBox name="active"
                             isClearable
-                            value={activeOptions.filter(option => option.value===form.active)}
+                            value={activeOptions.filter(option => option.value === form.active)}
                             onChange={handleSelectChange}
                             options={activeOptions} />
                     </FormControl>
@@ -96,7 +84,7 @@ const Filter = ({ isOpen, handleClose }) => {
                     <InputLabel children="Per Page" />
                     <FormControl fullWidth variant="outlined">
                         <ComboBox name="perPage"
-                            value={perPageOptions.filter(option => option.value===form.perPage)}
+                            value={perPageOptions.filter(option => option.value === form.perPage)}
                             onChange={handleSelectChange}
                             options={perPageOptions} />
                     </FormControl>

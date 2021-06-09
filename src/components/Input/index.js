@@ -19,9 +19,9 @@ const CustomInput = ({ onClear, value, label, isClearable = false, disabled=fals
   return (
     <>
       <Grid>
-      <FormControl error={rest.error}>
-        {label && <FormLabel children={label} />}
-        <Input  disabled={disabled} classes={{ underline: classes.underline, root: classes.inputRoot }} value={value} endAdornment={value && isClearable && <IconButton
+      <FormControl error={rest.error} classes={{root:classes.formControlRoot}} >
+        {label && <FormLabel children={label} classes={{root:classes.labelRoot}} />}
+        <Input disabled={disabled} classes={{ underline: classes.underline, root: classes.inputRoot }} value={value} endAdornment={value && isClearable && <IconButton
           classes={{ root: classes.IconButtonRoot }}
 
           onClick={onClear}
