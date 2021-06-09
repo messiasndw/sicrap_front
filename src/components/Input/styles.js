@@ -26,8 +26,11 @@ const useStyles = makeStyles( theme => ({
     },
     inputRoot:{
         "&.MuiInput-formControl":{
+            marginTop:"0px !important"
+        },
+        "&.label.MuiInput-formControl":{
             marginTop:"0px"
-        }
+        },
     }
     
     

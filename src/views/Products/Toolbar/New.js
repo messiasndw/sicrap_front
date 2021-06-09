@@ -7,7 +7,6 @@ import Switch from '../../../components/Switch'
 import {storeProducts} from '@redux-actions'
 import {useDispatch, useSelector} from 'react-redux'
 
-
 const New = ({ isOpen, handleClose }) => {
 
     const dispatch = useDispatch()
