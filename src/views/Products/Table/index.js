@@ -5,11 +5,13 @@ import CategoryIcon from '@material-ui/icons/Category';
 import Pagination from '@components/Pagination'
 import {useSelector} from 'react-redux'
 import {fetchProducts} from '@redux-actions'
+import {useAlertDialog} from '../../../hooks/useAlert'
 
 const DataTable = ({data,isFetching}) => {
 
+    const alert = useAlertDialog()
+    
     const pagination = useSelector(({Products}) => Products.pagination)
-
     const [modal, setModal] = useState({ open: null, data: {} })
 
     const handleEdit = useCallback(((items) => {
@@ -17,7 +19,14 @@ const DataTable = ({data,isFetching}) => {
     }),[])
 
     const handleDelete = useCallback((selectedItem) => {
-        console.log(selectedItem)
+        const itens = selectedItem.map(item => ' '+item.name)
+        console.log(itens)
+        alert({
+            title: "Tem certeza?",
+            body: `Tem certeza que deseja excluir os itens: ${itens} ?`,
+            onConfirm: () => {},
+            onClose: () => {}
+        })
     },[])
 
     const toolbarOptions = [

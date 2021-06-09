@@ -1,11 +1,8 @@
 import Grid from '@material-ui/core/Grid';
 import Input from '../../components/Input/index';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import CardComponent from '../../components/Card'
 import Button from '../../components/Button/index';
-// import Button from '@material-ui/core/Button';
-import Select from '../../components/Select/index';
 import InputLabel from '../../components/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import DatePicker from '../../components/DatePicker/index'
@@ -19,29 +16,15 @@ const Profile = (props) => {
     const { name, email, gender, isUpdatingProfile } = useSelector(({ User }) => User)
 
     const [form, setForm] = useState({
-        gender: "male",
-        name: name,
-        email: email,
+        name,
+        email,
+        gender
     })
-
-    useEffect(() => {
-        document.title = 'Sicrap | Profile'
-        // setForm((prevState) => ({
-        //     ...prevState,
-        //     name: name,
-        //     email: email,
-        // }))
-    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(form)
         dispatch(updateProfile(form))
     }
-
-    useEffect(() => {
-        console.log(form)
-    }, [form])
 
     const handleChange = (e) => {
         const input = e.target
@@ -58,7 +41,7 @@ const Profile = (props) => {
         }))
     }
 
-    const handleDateChange = (date,value) => {
+    const handleDateChange = (date, value) => {
         setForm((prevState) => ({
             ...prevState,
             birthday: value

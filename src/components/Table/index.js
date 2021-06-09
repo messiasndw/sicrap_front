@@ -143,7 +143,6 @@ function EnhancedTableHead(props) {
     const createSortHandler = (property) => (event) => {
         onRequestSort(event, property);
     };
-    console.log("reusual table run")
     return (
         <TableHead>
             <TableRow>
@@ -243,7 +242,7 @@ const EnhancedTableToolbar = (props) => {
 
             {numSelected > 0 && deleteButton && (
                 <Tooltip title="Delete">
-                    <IconButton classes={{ root: classes.icons }} onClick={() => handleDelete(selected.map((i, k) => (i._id)))} aria-label="delete">
+                    <IconButton classes={{ root: classes.icons }} onClick={() => handleDelete(selected.map((i, k) => (i)))} aria-label="delete">
                         <DeleteIcon />
                     </IconButton>
                 </Tooltip>

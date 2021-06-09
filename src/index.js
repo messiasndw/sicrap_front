@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import AlertContext, { AlertContextProvider } from './context/alertContext'
+
 
 // register.addAliases({
 //   "@redux-actions": __dirname+"/src/redux/actions.js"
@@ -13,7 +15,9 @@ import store from './redux/store';
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <AlertContextProvider>
+      <App />
+    </AlertContextProvider>
   </Provider>,
   document.getElementById('root')
 );

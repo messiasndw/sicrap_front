@@ -13,8 +13,6 @@ const New = ({ isOpen, handleClose }) => {
     const dispatch = useDispatch()
     const storing = useSelector(({Products}) => Products.storing )
     // const {storing} = useSelector(({Products}) => Products)
-    console.log(storing)
-    console.log("new render")
 
     const [form, setForm] = useState({
         active: 1,
