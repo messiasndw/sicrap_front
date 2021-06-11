@@ -3,18 +3,10 @@ import { useEffect, useState, useCallback, useMemo } from 'react'
 export const useForm = ({
     initialValues,
     onSubmit,
-    validations
+    validation
 }) => {
 
     const [form, setForm] = useState({ ...initialValues })
-
-    const [validation, setValidation] = useState(
-        {
-            name: [{ type: 'required', msg: 'Name is required!' }, { type: 'min:3', msg: '3 character minimum!' }],
-            code: [{ type: 'required', msg: "Obrigatorio!" },]
-        }
-
-    )
 
     const [check, setCheck] = useState(checkInitState(validation))
     const [showMessages, setShowMessages] = useState(false)
