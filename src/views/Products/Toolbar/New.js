@@ -11,6 +11,7 @@ import { useForm } from '@hooks/useForm'
 const New = ({ isOpen, handleClose }) => {
 
     const dispatch = useDispatch()
+    const storing = useSelector(({ Products }) => Products.storing)
 
     const initialValues = {
         active: 1,
@@ -18,17 +19,26 @@ const New = ({ isOpen, handleClose }) => {
         name: ''
     }
 
-    const onSubmit = (form) => {
-        dispatch(storeProducts({ form, handleClose }))
+    const validation = {
+        name: [
+            { type: 'required', msg: 'Name is required!' }
+        ],
+        code: [
+            { type: 'required', msg: 'Code is required' }
+        ]
     }
 
-    const {check, form, setForm, handleSubmit, handleInputChange, handleSwitchChange } = useForm({
+    const onSubmit = (form, validation) => {
+        if (validation.isAllValid()) {
+            dispatch(storeProducts({ form, handleClose }))
+        }
+    }
+
+    const { v, form, setForm, handleSubmit, handleInputChange, handleSwitchChange } = useForm({
         initialValues,
-        onSubmit
+        onSubmit,
+        validation
     })
-
-    const storing = useSelector(({ Products }) => Products.storing)
-
     const onExited = () => {
         setForm({
             active: 1,
@@ -49,7 +59,8 @@ const New = ({ isOpen, handleClose }) => {
             <Grid container spacing={3}>
                 <Grid item md={6} sm={12} xs={12}>
                     <Input
-                        error={!check.name.required.isValid}
+                        error={!v.isValid('name')}
+                        errorMessage={v.getMessage('name')}
                         disabled={storing}
                         placeholder="Name"
                         name="name"
@@ -61,6 +72,8 @@ const New = ({ isOpen, handleClose }) => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <Input
+                        error={!v.isValid('code')}
+                        errorMessage={v.getMessage('code')}
                         placeholder="Code"
                         name="code"
                         label="Code"

@@ -10,11 +10,11 @@ import Grid from '@material-ui/core/Grid';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 
-const CustomInput = ({ onClear, value, label, isClearable = false, disabled=false, ...rest }) => {
+const CustomInput = ({ onClear, value, label, isClearable = false, disabled=false, errorMessage, ...rest }) => {
 
   const classes = useStyles()
 
-  const errorMessage = rest.error ? <FormHelperText id="component-error-text">Code is required</FormHelperText> : null
+  const a = rest.error && errorMessage != null ? <FormHelperText id="component-error-text">{errorMessage}</FormHelperText> : null
 
   return (
     <>
@@ -29,7 +29,7 @@ const CustomInput = ({ onClear, value, label, isClearable = false, disabled=fals
           <CancelRoundedIcon classes={{ root: classes.iconRoot }} />
         </IconButton>}
           inputProps={{ classes: { underline: classes.underline } }} {...rest} />
-            {errorMessage}
+            {a}
           </FormControl>
       </Grid>
     </>
