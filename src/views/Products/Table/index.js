@@ -3,28 +3,30 @@ import Table from '@components/Table'
 import Edit from './Edit'
 import CategoryIcon from '@material-ui/icons/Category';
 import Pagination from '@components/Pagination'
-import {useSelector} from 'react-redux'
-import {fetchProducts} from '@redux-actions'
+import {useSelector, useDispatch} from 'react-redux'
+import {fetchProducts, deleteProducts} from '@redux-actions'
 import {useAlertDialog} from '../../../hooks/useAlert'
 
 const DataTable = ({data,isFetching}) => {
 
     const alert = useAlertDialog()
-    
+    const dispatch = useDispatch()
+
     const pagination = useSelector(({Products}) => Products.pagination)
     const [modal, setModal] = useState({ open: null, data: {} })
 
-    const handleEdit = useCallback(((items) => {
+    const handleEdit = ((items) => {
         setModal({ open: 'edit', data: items })
-    }),[])
+    })
 
     const handleDelete = useCallback((selectedItem) => {
         const itens = selectedItem.map(item => ' '+item.name)
-        console.log(itens)
+        const productsIds = selectedItem.map(item => item._id)
+        const word = itens.length > 1 ? 'products' : 'product'
         alert({
-            title: "Tem certeza?",
-            body: `Tem certeza que deseja excluir os itens: ${itens} ?`,
-            onConfirm: () => {},
+            title: "Are you sure?",
+            body: `Do you want to delete the ${word}: ${itens} ?`,
+            onConfirm: () => {dispatch(deleteProducts(productsIds))},
             onClose: () => {}
         })
     },[])

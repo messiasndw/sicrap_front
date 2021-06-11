@@ -19,10 +19,10 @@ const New = ({ isOpen, handleClose }) => {
     }
 
     const onSubmit = (form) => {
-        // dispatch(storeProducts({ form, handleClose }))
+        dispatch(storeProducts({ form, handleClose }))
     }
 
-    const { form, setForm, handleSubmit, handleInputChange, handleSwitchChange } = useForm({
+    const {check, form, setForm, handleSubmit, handleInputChange, handleSwitchChange } = useForm({
         initialValues,
         onSubmit
     })
@@ -49,6 +49,7 @@ const New = ({ isOpen, handleClose }) => {
             <Grid container spacing={3}>
                 <Grid item md={6} sm={12} xs={12}>
                     <Input
+                        error={!check.name.required.isValid}
                         disabled={storing}
                         placeholder="Name"
                         name="name"
