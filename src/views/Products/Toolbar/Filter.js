@@ -19,8 +19,8 @@ const Filter = ({ isOpen, handleClose }) => {
         handleClose()
     }
 
-    const {form, setForm, handleSubmit, handleInputChange, handleSelectChange } = useForm({
-        ...filter,
+    const { form, setForm, handleSubmit, handleInputChange, handleSelectChange } = useForm({
+        initialValues: { ...filter },
         onSubmit
     })
 

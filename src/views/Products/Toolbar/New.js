@@ -7,6 +7,7 @@ import Switch from '../../../components/Switch'
 import { storeProducts } from '@redux-actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from '@hooks/useForm'
+import {newFormValidation as validation} from '@validations/products'
 
 const New = ({ isOpen, handleClose }) => {
 
@@ -17,15 +18,6 @@ const New = ({ isOpen, handleClose }) => {
         active: 1,
         code: '',
         name: ''
-    }
-
-    const validation = {
-        name: [
-            { type: 'required', msg: 'Name is required!' }
-        ],
-        code: [
-            { type: 'required', msg: 'Code is required' }
-        ]
     }
 
     const onSubmit = (form, validation) => {
@@ -50,6 +42,7 @@ const New = ({ isOpen, handleClose }) => {
     return (
         <ModalDialog
             onExited={onExited}
+            // disableSubmit={!v.isAllValid()}
             handleClose={handleClose}
             handleSubmit={handleSubmit}
             isOpen={isOpen}

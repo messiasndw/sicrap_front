@@ -55,7 +55,7 @@ export default function FormDialog(props) {
           <Button classes={{ text: classes.button }} onClick={props.handleClose} >
             {props.cancelTitle}
           </Button>
-          <Button form="dialogForm" type="submit" classes={{ text: classes.button }} >
+          <Button disabled={props.disableSubmit || false} form="dialogForm" type="submit" classes={{ text: classes.button }} >
             {props.submitTitle}
           </Button>
         </DialogActions>

@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback, useMemo } from 'react'
 export const useForm = ({
     initialValues,
     onSubmit,
-    validation
+    validation= {}
 }) => {
 
     const [form, setForm] = useState({ ...initialValues })
@@ -63,7 +63,7 @@ export const useForm = ({
     }
 
     useEffect(() => {
-        validateFields(form, validation, setValidation, setCheck)
+        validateFields(form, validation, setCheck)
     }, [form])
 
     const handleSubmit = (e) => {
@@ -95,7 +95,7 @@ export const useForm = ({
 
 }
 
-const validateFields = (form, validation, setValidation, setCheck) => {
+const validateFields = (form, validation, setCheck) => {
     for (const key in form) {
         if (!!validation[key]) {
             const field = key;
