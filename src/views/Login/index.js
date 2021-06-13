@@ -11,7 +11,6 @@ const Login = () => {
     const dispatch = useDispatch()
 
     const isLogging = useSelector(({User}) => User.isLogging)
-    console.log(isLogging)
 
     const [form, setForm] = useState({
         email: '',

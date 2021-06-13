@@ -9,37 +9,35 @@ import DatePicker from '../../components/DatePicker/index'
 import { useSelector, useDispatch } from 'react-redux'
 import ComboBox from '@components/ComboBox'
 import { updateProfile } from '@redux-actions'
+import { profileFormValidation as validation } from '@validations/user';
+import {useForm} from '@hooks/useForm'
 
 const Profile = (props) => {
 
     const dispatch = useDispatch()
     const { name, email, gender, isUpdatingProfile } = useSelector(({ User }) => User)
 
-    const [form, setForm] = useState({
+    const initialValues = {
         name,
         email,
         gender
+    }
+
+    const onSubmit = (form, validation) => {
+        if(validation.isAllValid()){
+            dispatch(updateProfile(form))
+        }
+    }
+
+    const { v, form, setForm, handleSubmit, handleInputChange, handleSelectChange } = useForm({
+        initialValues,
+        onSubmit,
+        validation
     })
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        dispatch(updateProfile(form))
-    }
-
-    const handleChange = (e) => {
-        const input = e.target
-        setForm((prevState) => ({
-            ...prevState,
-            [input.name]: input.value
-        }))
-    }
-
-    const handleSelectChange = (e, input) => {
-        setForm((prevState) => ({
-            ...prevState,
-            [input.name]: input.value
-        }))
-    }
+    useEffect(() => {
+        console.log(form)
+    }, [form])
 
     const handleDateChange = (date, value) => {
         setForm((prevState) => ({
@@ -59,12 +57,14 @@ const Profile = (props) => {
 
                             <Grid item xs={12} md={6}>
                                 <Input required
+                                    error={!v.isValid('name')}
+                                    errorMessage={v.getMessage('name')}
                                     id="name"
                                     name="name"
                                     label="Name"
                                     fullWidth
                                     value={form.name}
-                                    onChange={handleChange}
+                                    onChange={handleInputChange}
                                     disabled={isUpdatingProfile}
                                 // autoComplete="cc-name" 
                                 />
@@ -72,12 +72,14 @@ const Profile = (props) => {
                             <Grid item xs={12} md={6}>
                                 <Input
                                     required
+                                    error={!v.isValid('email')}
+                                    errorMessage={v.getMessage('email')}
                                     id="email"
                                     label="Email"
                                     name="email"
                                     fullWidth
                                     value={form.email}
-                                    onChange={handleChange}
+                                    onChange={handleInputChange}
                                     disabled={isUpdatingProfile}
                                 />
                             </Grid>
