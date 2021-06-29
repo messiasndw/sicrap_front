@@ -61,6 +61,30 @@ export const storeProducts = (payload) => async (dispatch, getState) => {
     })
 };
 
+export const updateProduct = (payload) => async (dispatch, getState) => {
+
+    dispatch({
+        type: types.PRODUCTS_UPDATE,
+    })
+
+
+    try {
+        const response = await Axios.put('/products', payload.form)
+        // toast.success(response.msg)
+        dispatch(fetchProducts())
+    } catch (error) {
+
+    }
+
+    //CLOSES DIALOG MODAL AFTER REQUEST STORE IS DONE
+    // payload.handleClose()
+
+    dispatch({
+        type: types.PRODUCTS_UPDATE_STATE,
+        payload: {isUpdating: false}
+    })
+};
+
 export const deleteProducts = (ids) => async (dispatch, getState) => {
 
     dispatch({

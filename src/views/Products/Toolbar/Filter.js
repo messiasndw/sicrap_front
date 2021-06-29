@@ -14,16 +14,16 @@ const Filter = ({ isOpen, handleClose }) => {
     const dispatch = useDispatch()
     const filter = useSelector(({ Products }) => Products.filter)
 
-    const onSubmit = (form) => {
-        dispatch(fetchProducts({ ...form, page: '' }))
-        handleClose()
-    }
-
     const { form, setForm, handleSubmit, handleInputChange, handleSelectChange } = useForm({
         initialValues: { ...filter },
         onSubmit
     })
 
+    function onSubmit(form) {
+        dispatch(fetchProducts({ ...form, page: '' }))
+        handleClose()
+    }
+    
     const onEnter = () => {
         setForm({ ...filter })
     }

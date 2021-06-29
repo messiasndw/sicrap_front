@@ -8,13 +8,13 @@ const BASE_URL = {
 }
 
 const api = Axios.create({
-    baseURL: 'http://localhost:3030',
+    baseURL: 'http://localhost:8282',
     timeout: 55000,
 });
 
 
 api.interceptors.request.use(async (config) => {
-
+    console.log("logando")
     if (config.method == 'get') {
         const params = Object.keys(config.params)
         if (!!params.length) {
@@ -35,11 +35,10 @@ api.interceptors.request.use(async (config) => {
     return config;
 
 }, (error) => {
-    // I cand handle a request with errors here
     return Promise.reject(error);
 });
 
-api.interceptors.response.use(function (response) {
+api.interceptors.response.use((response) => {
 
     switch (response.status) {
         case 200:
@@ -48,7 +47,14 @@ api.interceptors.response.use(function (response) {
             break;
     }
     return response.data
-}, function (error) {
+}, (error) => {
+
+    if (!error.response) {
+        const { dispatch } = store
+        toast.error("Something went wrong! Please make you're connected to the internet.")
+        dispatch(logout())
+    }
+
     switch (error.response.status) {
         case 401:
             toast.error(error.response.data.msg)
@@ -57,16 +63,16 @@ api.interceptors.response.use(function (response) {
             break;
 
         case 422:
-            const {errors} = error.response.data
+            const { errors } = error.response.data
             errors.forEach(element => {
                 toast.error(element.msg)
             });
             break;
 
         default:
-            break;
+            console.log("afa")
+            break
     }
-
     return Promise.reject(error);
 });
 

@@ -5,29 +5,30 @@ import InputLabel from '../../../components/InputLabel';
 import Input from '../../../components/Input/index';
 import FormControl from '@material-ui/core/FormControl';
 import Switch from '../../../components/Switch'
+import { updateProduct } from '@redux-actions'
+import { useForm } from '@hooks/useForm'
+import { useSelector, useDispatch } from 'react-redux';
+import {updateFormValidation as validation} from '@validations/products'
 
-const Edit = ({ setModal, isOpen, data, loading, updateData }) => {
+const Edit = ({ setModal, isOpen, data}) => {
+
+    const isUpdating = useSelector(({ Products }) => Products.isUpdating)
+    const dispatch = useDispatch()
+
+    const onSubmit = (form, validation) => {
+        if (validation.isAllValid()) {
+            dispatch(updateProduct({form}))
+        }
+    }
+
+    const { v, form, setForm, handleInputChange, handleSwitchChange, handleSubmit } = useForm({
+        initialValues: {...data},
+        onSubmit,
+        validation
+    })
 
     const handleClose = () => {
         setModal({ open: null, data: {} })
-    }
-
-    const [form, setForm] = useState({})
-
-    const handleInputChange = (e) => {
-        const input = e.target
-        setForm((prevState) => (
-            { ...prevState, [input.name]: input.value }
-        ))
-    }
-
-    const handleSwitchChange = (e) => {
-        setForm((prevState) => (
-            { ...prevState, active: e.target.checked ? 1 : 0 }
-        ))
-    }
-
-    const handleSubmit = () => {
     }
 
     const onEnter = () => {
@@ -46,19 +47,21 @@ const Edit = ({ setModal, isOpen, data, loading, updateData }) => {
             <Grid container spacing={3}>
                 <Grid item md={6} sm={12} xs={12}>
                     <Input required
+                        error={!v.isValid('name')}
+                        errorMessage={v.getMessage('name')}
                         defaultValue={data.name}
                         id="name"
                         name="name"
                         label="Name"
                         fullWidth
                         onChange={handleInputChange}
-                    // autoComplete="cc-name" 
                     />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <Input
-                        // value={data.id || ''}
-                        defaultValue={data.id}
+                        error={!v.isValid('code')}
+                        errorMessage={v.getMessage('code')}
+                        defaultValue={data.code}
                         required
                         id="code"
                         label="Code"

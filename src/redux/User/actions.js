@@ -14,6 +14,7 @@ export const register = (payload) => async (dispatch, getState) => {
         const response = await Axios.post('/register', { ...payload })
         localStorage.setItem('accessToken', response.token)
         updatedState = { ...updatedState, isAuth: true }
+        console.log(response)
     } catch (error) {
 
     }
@@ -64,7 +65,7 @@ export const me = (payload) => async (dispatch, getState) => {
         const response = await Axios.post('/me')
         updatedState = {...updatedState, ...response.me, isAuth: true}
     } catch (error) {
-
+        
     }
 
     dispatch({

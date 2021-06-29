@@ -2,7 +2,7 @@
 import * as types from '../types'
 
 const INIT_STATE = {
-    pagination:{
+    pagination: {
         totalPages: null,
         currentPage: 1
     },
@@ -14,6 +14,7 @@ const INIT_STATE = {
     },
     isFetching: false,
     storing: false,
+    isUpdating: false,
     isDeleting: false,
     data: []
 }
@@ -26,7 +27,9 @@ export default function (state = INIT_STATE, action) {
             return { ...state, isFetching: true }
         case types.PRODUCTS_STORE:
             return { ...state, storing: true }
-            case types.PRODUCTS_DELETE:
+        case types.PRODUCTS_UPDATE:
+            return { ...state, isUpdating: true }
+        case types.PRODUCTS_DELETE:
             return { ...state, isDeleting: true }
         case types.PRODUCTS_UPDATE_STATE:
             return { ...state, ...action.payload }
